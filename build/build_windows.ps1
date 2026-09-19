@@ -25,11 +25,12 @@ Write-Host "Validating bundled offline PDF engine..." -ForegroundColor DarkCyan
 # it can contain a stale exit code from an earlier native process.
 & ".\build\prepare_tectonic.ps1"
 
-Write-Host "Refreshing CVM application icon..." -ForegroundColor DarkCyan
-& $Python -c "from PIL import Image, ImageOps; from pathlib import Path; src=Path(r'assets/branding/cvm.png'); dst=Path(r'assets/branding/cvm_app.ico'); im=Image.open(src).convert('RGBA'); side=max(im.size); sq=Image.new('RGBA',(side,side),(0,0,0,0)); sq.alpha_composite(im,((side-im.width)//2,(side-im.height)//2)); sq=ImageOps.contain(sq,(256,256),Image.Resampling.LANCZOS); sq.save(dst,format='ICO',sizes=[(16,16),(24,24),(32,32),(48,48),(64,64),(128,128),(256,256)])"
-if ($LASTEXITCODE -ne 0) {
-    throw "Unable to generate assets\branding\cvm_app.ico."
+Write-Host "Validating CVM application icon..." -ForegroundColor DarkCyan
+$AppIcon = ".\assets\branding\cvm_app.ico"
+if (-not (Test-Path $AppIcon)) {
+    throw "Missing custom application icon: assets\branding\cvm_app.ico"
 }
+Write-Host "Using existing custom icon: $AppIcon" -ForegroundColor Green
 
 Write-Host "Generating Windows version metadata..." -ForegroundColor DarkCyan
 & $Python ".\build\generate_version_info.py"

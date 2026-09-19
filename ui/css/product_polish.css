@@ -1760,3 +1760,687 @@ html[data-theme="dark"] .cvm-recovery-person {
         flex: 1 1 180px;
     }
 }
+
+/* ==========================================================
+   CVM v1.0.1 - PERMANENT DARK APP CHROME
+========================================================== */
+
+html,
+html[data-theme="dark"] {
+    color-scheme: dark !important;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .page,
+html[data-theme="dark"] .page-heading,
+html[data-theme="dark"] .editor-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .export-card,
+html[data-theme="dark"] .cvm-manager-page,
+html[data-theme="dark"] .cvm-manager-row,
+html[data-theme="dark"] .analysis-empty {
+    color: #F8F6F1;
+}
+
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .page-heading h2,
+html[data-theme="dark"] .page-heading h3,
+html[data-theme="dark"] .editor-card h2,
+html[data-theme="dark"] .editor-card h3,
+html[data-theme="dark"] .settings-card h2,
+html[data-theme="dark"] .settings-card h3,
+html[data-theme="dark"] .export-card h2,
+html[data-theme="dark"] .export-card h3,
+html[data-theme="dark"] .cvm-manager-row h3,
+html[data-theme="dark"] .cvm-manager-page h1,
+html[data-theme="dark"] .cvm-manager-page h2,
+html[data-theme="dark"] .cvm-manager-page h3 {
+    color: #FFFDF9 !important;
+}
+
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .settings-copy,
+html[data-theme="dark"] .export-card p,
+html[data-theme="dark"] .cvm-manager-meta,
+html[data-theme="dark"] .analysis-empty {
+    color: #AEB7C6 !important;
+}
+
+/* Top bar: direct PNG logo, no surrounding box, premium gold light. */
+html[data-theme="dark"] .topbar {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 12% 0%, rgba(208, 170, 112, .16), transparent 26%),
+        radial-gradient(circle at 64% -35%, rgba(208, 170, 112, .10), transparent 32%),
+        linear-gradient(180deg, rgba(20, 26, 36, .98), rgba(14, 19, 27, .97)) !important;
+    border-bottom-color: rgba(208, 170, 112, .22) !important;
+    box-shadow:
+        0 12px 34px rgba(0, 0, 0, .28),
+        inset 0 -1px 0 rgba(208, 170, 112, .05) !important;
+}
+
+html[data-theme="dark"] .topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(105deg, transparent 8%, rgba(208, 170, 112, .055) 21%, transparent 35%),
+        linear-gradient(255deg, transparent 54%, rgba(208, 170, 112, .035) 70%, transparent 84%);
+}
+
+html[data-theme="dark"] .topbar > * {
+    position: relative;
+    z-index: 1;
+}
+
+html[data-theme="dark"] .brand-logo-wrap,
+.brand-logo-wrap {
+    width: 72px !important;
+    height: 52px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] .brand-logo,
+.brand-logo {
+    width: 68px !important;
+    height: 48px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, .28));
+}
+
+/* ==========================================================
+   CVM v1.0.1 - COMPLETE UI CHANGE SET
+========================================================== */
+
+/* Permanent dark mode */
+html,
+html[data-theme="dark"] {
+    color-scheme: dark !important;
+    background: #0B0F16 !important;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .app-shell,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .page {
+    background-color: #0B0F16 !important;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .page,
+html[data-theme="dark"] .page-heading,
+html[data-theme="dark"] .editor-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .export-card,
+html[data-theme="dark"] .analysis-empty,
+html[data-theme="dark"] .cvm-manager-page,
+html[data-theme="dark"] .cvm-manager-row,
+html[data-theme="dark"] .cvm-modal,
+html[data-theme="dark"] .cvm-editor-overlay {
+    color: #F8F6F1 !important;
+}
+
+html[data-theme="dark"] .page h1,
+html[data-theme="dark"] .page h2,
+html[data-theme="dark"] .page h3,
+html[data-theme="dark"] .page strong,
+html[data-theme="dark"] .cvm-modal h1,
+html[data-theme="dark"] .cvm-modal h2,
+html[data-theme="dark"] .cvm-modal h3,
+html[data-theme="dark"] .cvm-editor-overlay h1,
+html[data-theme="dark"] .cvm-editor-overlay h2,
+html[data-theme="dark"] .cvm-editor-overlay h3,
+html[data-theme="dark"] .cvm-editor-overlay strong {
+    color: #FFFDF9;
+}
+
+html[data-theme="dark"] .page p,
+html[data-theme="dark"] .page small,
+html[data-theme="dark"] .page label,
+html[data-theme="dark"] .cvm-modal p,
+html[data-theme="dark"] .cvm-modal small,
+html[data-theme="dark"] .cvm-manager-meta {
+    color: #AEB7C6;
+}
+
+html[data-theme="dark"] input:not([type="color"]),
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+    color: #F8F6F1 !important;
+    background: #111827 !important;
+    border-color: rgba(208, 170, 112, .18) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #737E90 !important;
+}
+
+/* ----------------------------------------------------------
+   TOP BAR / BRAND
+---------------------------------------------------------- */
+
+html[data-theme="dark"] .topbar,
+.topbar {
+    min-height: 84px !important;
+    height: 84px !important;
+    position: relative;
+    overflow: hidden;
+    padding: 0 26px !important;
+    background:
+        radial-gradient(circle at 10% -25%, rgba(208, 170, 112, .28), transparent 28%),
+        radial-gradient(circle at 44% -70%, rgba(188, 150, 93, .18), transparent 31%),
+        radial-gradient(circle at 82% -65%, rgba(208, 170, 112, .13), transparent 28%),
+        linear-gradient(180deg, #151B25 0%, #0D121A 100%) !important;
+    border-bottom: 1px solid rgba(208, 170, 112, .24) !important;
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, .30),
+        inset 0 -1px 0 rgba(255, 255, 255, .025) !important;
+}
+
+.topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(102deg, transparent 2%, rgba(255, 232, 189, .07) 13%, transparent 27%),
+        linear-gradient(258deg, transparent 60%, rgba(255, 232, 189, .045) 74%, transparent 90%);
+}
+
+.topbar > * {
+    position: relative;
+    z-index: 1;
+}
+
+.brand-area {
+    gap: 14px !important;
+}
+
+.brand-logo-wrap,
+html[data-theme="dark"] .brand-logo-wrap {
+    width: 108px !important;
+    height: 68px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+.brand-logo,
+html[data-theme="dark"] .brand-logo {
+    width: 104px !important;
+    height: 64px !important;
+    max-width: none !important;
+    object-fit: contain !important;
+    filter:
+        drop-shadow(0 10px 18px rgba(0, 0, 0, .32))
+        drop-shadow(0 0 13px rgba(208, 170, 112, .08));
+}
+
+.brand-name {
+    color: #FFFDF9 !important;
+}
+
+.brand-subtitle,
+.brand-author {
+    color: #B5BECC !important;
+}
+
+.cvm-v101-resume-editor {
+    border-color: rgba(208, 170, 112, .48) !important;
+    color: #F4D9AA !important;
+    background:
+        linear-gradient(180deg, rgba(208, 170, 112, .15), rgba(188, 150, 93, .08)) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .02);
+}
+
+.cvm-v101-resume-editor:hover {
+    background:
+        linear-gradient(180deg, rgba(208, 170, 112, .24), rgba(188, 150, 93, .13)) !important;
+    transform: translateY(-1px);
+}
+
+.cvm-v101-resume-editor[hidden] {
+    display: none !important;
+}
+
+/* ----------------------------------------------------------
+   HOME - TETRIS / STEAM-DECK STYLE BOARD
+---------------------------------------------------------- */
+
+.cvm-v101-home-page {
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.cvm-v101-home-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1.07fr) minmax(0, .93fr);
+    grid-template-rows: minmax(0, 1.18fr) minmax(0, .82fr);
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.cvm-v101-home-tile {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(208, 170, 112, .22);
+    border-radius: 22px;
+    background: #151B25;
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .25),
+        inset 0 1px 0 rgba(255, 255, 255, .04);
+    text-align: left;
+    cursor: pointer;
+    transition:
+        transform 180ms ease,
+        filter 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.cvm-v101-home-tile:hover {
+    transform: translateY(-3px) scale(1.006);
+    border-color: rgba(208, 170, 112, .56);
+    box-shadow:
+        0 24px 52px rgba(0, 0, 0, .34),
+        0 0 0 1px rgba(208, 170, 112, .10),
+        inset 0 1px 0 rgba(255, 255, 255, .055);
+    filter: brightness(1.035);
+}
+
+.cvm-v101-home-tile:active {
+    transform: translateY(-1px) scale(.998);
+}
+
+.cvm-v101-home-tile--create {
+    background:
+        linear-gradient(180deg, rgba(9, 13, 20, .06), rgba(5, 8, 13, .58)),
+        url("../../assets/branding/create_cv_button.png") center / cover no-repeat;
+    clip-path: polygon(0 0, 100% 0, 100% 68%, 82% 68%, 82% 100%, 0 100%);
+}
+
+.cvm-v101-home-tile--latex {
+    background:
+        linear-gradient(180deg, rgba(9, 13, 20, .06), rgba(5, 8, 13, .60)),
+        url("../../assets/branding/customize_button.png") center / cover no-repeat;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%, 18% 72%, 0 72%);
+}
+
+.cvm-v101-home-tile--open {
+    background:
+        radial-gradient(circle at 18% 5%, rgba(255, 244, 218, .46), transparent 34%),
+        linear-gradient(135deg, #D7B77D 0%, #BC965D 48%, #A9834C 100%);
+    clip-path: polygon(0 0, 82% 0, 82% 30%, 100% 30%, 100% 100%, 0 100%);
+}
+
+.cvm-v101-home-tile--demo {
+    background:
+        radial-gradient(circle at 80% 8%, rgba(255, 244, 218, .38), transparent 34%),
+        linear-gradient(135deg, #C7A366 0%, #E1C38C 55%, #B99155 100%);
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%, 0 30%, 18% 30%);
+}
+
+.cvm-v101-home-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(180deg, transparent 32%, rgba(3, 6, 10, .18) 57%, rgba(3, 6, 10, .76) 100%),
+        radial-gradient(circle at 25% 5%, rgba(208, 170, 112, .08), transparent 34%);
+}
+
+.cvm-v101-home-label {
+    display: grid;
+    gap: 4px;
+    padding: 28px 32px;
+    color: #FFFDF9;
+    text-shadow: 0 3px 16px rgba(0, 0, 0, .62);
+    pointer-events: none;
+}
+
+.cvm-v101-home-label small {
+    color: #E5C691 !important;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .15em;
+}
+
+.cvm-v101-home-label strong {
+    color: #FFFFFF !important;
+    font-size: clamp(25px, 2.45vw, 40px);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+}
+
+.cvm-v101-home-label > span {
+    color: #D7DDE7;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.cvm-v101-home-label--dark {
+    color: #161A21;
+    text-shadow: none;
+}
+
+.cvm-v101-home-label--dark small,
+.cvm-v101-home-label--dark strong,
+.cvm-v101-home-label--dark > span {
+    color: #161A21 !important;
+}
+
+.cvm-v101-home-tile--open .cvm-v101-home-label,
+.cvm-v101-home-tile--demo .cvm-v101-home-label {
+    padding: 24px 30px;
+}
+
+/* ----------------------------------------------------------
+   RECENT PROJECTS PAGE
+---------------------------------------------------------- */
+
+.cvm-v101-recent-page .page-heading {
+    align-items: center;
+}
+
+.cvm-v101-recent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.cvm-v101-recent-grid .cvm-recent-card {
+    display: grid;
+    gap: 8px;
+    min-height: 150px;
+    padding: 18px;
+    border: 1px solid rgba(208, 170, 112, .16);
+    border-radius: 16px;
+    background: linear-gradient(180deg, #151C27, #101620);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .20);
+}
+
+.cvm-v101-recent-grid .cvm-recent-card strong {
+    color: #FFFDF9 !important;
+}
+
+.cvm-v101-recent-grid .cvm-recent-card span,
+.cvm-v101-recent-grid .cvm-recent-card small {
+    color: #AEB7C6 !important;
+}
+
+/* ----------------------------------------------------------
+   ATS FILE-FIRST FLOW
+---------------------------------------------------------- */
+
+.cvm-v101-ats-page {
+    max-width: 1100px;
+}
+
+.cvm-v101-ats-upload-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(208, 170, 112, .20);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(208, 170, 112, .09), transparent 33%),
+        linear-gradient(180deg, #151C27, #101620);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .21);
+}
+
+.cvm-v101-ats-upload-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+    color: #E1BF86;
+    border: 1px solid rgba(208, 170, 112, .22);
+    background: rgba(208, 170, 112, .08);
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.cvm-v101-ats-upload-copy {
+    display: grid;
+    gap: 4px;
+}
+
+.cvm-v101-ats-upload-copy strong {
+    color: #FFFDF9 !important;
+    font-size: 17px;
+}
+
+.cvm-v101-ats-upload-copy span {
+    color: #AEB7C6;
+    font-size: 12px;
+}
+
+.cvm-v101-ats-upload-copy small {
+    color: #778397 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cvm-v101-ats-upload-card.has-file {
+    border-color: rgba(16, 185, 129, .34);
+}
+
+.cvm-v101-ats-upload-card.has-file .cvm-v101-ats-upload-icon {
+    color: #7FE0B7;
+    border-color: rgba(16, 185, 129, .26);
+    background: rgba(16, 185, 129, .09);
+}
+
+.cvm-v101-ats-action-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 18px;
+}
+
+#runAtsBtn:disabled {
+    opacity: .38 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    filter: grayscale(.35);
+}
+
+/* ----------------------------------------------------------
+   CV EDITOR TOOLBAR
+---------------------------------------------------------- */
+
+.cvm-editor-header {
+    align-items: center !important;
+    gap: 18px !important;
+}
+
+.cvm-v101-editor-left {
+    display: grid;
+    gap: 8px;
+    min-width: 330px;
+}
+
+.cvm-v101-editor-left .cvm-editor-brand {
+    min-width: 0;
+}
+
+.cvm-v101-editor-left-tools {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-left: 2px;
+}
+
+.cvm-v101-editor-left-tools .cvm-editor-tool {
+    min-height: 32px;
+    padding: 0 11px !important;
+    font-size: 11px !important;
+}
+
+.cvm-editor-toolbar.cvm-v101-editor-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* ----------------------------------------------------------
+   SAVE AS MODAL
+---------------------------------------------------------- */
+
+#cvmV101SaveAsModal .cvm-v101-save-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 6px;
+}
+
+.cvm-v101-save-choice {
+    display: grid;
+    gap: 6px;
+    min-height: 110px;
+    padding: 18px;
+    border: 1px solid rgba(208, 170, 112, .18);
+    border-radius: 15px;
+    color: #FFFDF9;
+    background: #121923;
+    text-align: left;
+}
+
+.cvm-v101-save-choice:hover {
+    border-color: rgba(208, 170, 112, .48);
+    background: #17202C;
+}
+
+.cvm-v101-save-choice strong {
+    font-size: 18px;
+}
+
+.cvm-v101-save-choice small {
+    color: #9FAABC !important;
+}
+
+/* ----------------------------------------------------------
+   LOG ERROR ONE-CLICK COPY
+---------------------------------------------------------- */
+
+.cvm-log-event {
+    gap: 10px;
+}
+
+.cvm-v101-copy-error {
+    margin-left: auto;
+    flex: 0 0 auto;
+    min-height: 26px;
+    padding: 0 9px;
+    border: 1px solid rgba(239, 68, 68, .24);
+    border-radius: 8px;
+    color: #FFC0C0;
+    background: rgba(239, 68, 68, .08);
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.cvm-v101-copy-error:hover {
+    background: rgba(239, 68, 68, .15);
+}
+
+/* ----------------------------------------------------------
+   SUPPORT MODAL
+---------------------------------------------------------- */
+
+#cvmSupportModal .cvm-modal-footer {
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#cvmSupportDonateLink,
+#cvmV072KofiLink {
+    min-width: 110px;
+    text-align: center;
+}
+
+/* ----------------------------------------------------------
+   MANAGER NAV GUARANTEE
+---------------------------------------------------------- */
+
+.main-content > .page:not(.active) {
+    display: none !important;
+}
+
+.main-content > .page.active {
+    display: block;
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE GUARDS
+---------------------------------------------------------- */
+
+@media (max-width: 1180px) {
+    .cvm-v101-home-board {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cvm-v101-home-label {
+        padding: 22px 24px;
+    }
+
+    .cvm-v101-home-label strong {
+        font-size: clamp(22px, 2.8vw, 32px);
+    }
+
+    .brand-logo-wrap,
+    html[data-theme="dark"] .brand-logo-wrap {
+        width: 94px !important;
+    }
+
+    .brand-logo,
+    html[data-theme="dark"] .brand-logo {
+        width: 90px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .cvm-v101-home-board {
+        gap: 8px;
+    }
+
+    .cvm-v101-home-label {
+        padding: 18px;
+    }
+
+    .cvm-v101-ats-upload-card {
+        grid-template-columns: auto 1fr;
+    }
+
+    .cvm-v101-ats-upload-card > button {
+        grid-column: 1 / -1;
+    }
+}

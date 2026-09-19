@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="dark">
     <title>CV Maker</title>
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/style.css">
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/brand_damergi.css">
     <link rel="stylesheet" href="css/performance.css">
     <link rel="stylesheet" href="css/product_polish.css">
+    <link rel="stylesheet" href="css/v101_hotfix_02.css">
 </head>
 <body>
 <div id="appShell" class="app-shell">
@@ -24,7 +25,7 @@
     <header class="topbar">
         <div class="brand-area">
             <div class="brand-logo-wrap">
-                <img src="../assets/branding/cvm_dark.png" alt="CVM" class="brand-logo">
+                <img src="../assets/branding/cvm.png" alt="CVM" class="brand-logo">
             </div>
             <div class="brand-copy">
                 <div class="brand-name">CV Maker <span class="brand-author">- By Farouk</span></div>
@@ -33,17 +34,11 @@
         </div>
 
         <div class="topbar-actions">
+            <button id="cvmResumeEditorBtn" class="top-action-button cvm-v101-resume-editor" type="button" hidden>Go back to CV editing</button>
             <button id="saveProjectBtn" class="top-action-button" type="button">Save project</button>
             <button id="quickPdfBtn" class="quick-export-button" type="button" title="Generate PDF">PDF</button>
             <button id="quickDocxBtn" class="quick-export-button" type="button" title="Generate DOCX">DOCX</button>
-            <div id="connectionBadge" class="connection-badge">
-                <span class="connection-dot"></span>
-                <span id="connectionText">Connecting</span>
-            </div>
-            <button id="themeToggle" class="icon-button" type="button" title="Toggle theme" aria-label="Toggle theme">
-                <span id="themeIcon">◐</span>
-            </button>
-            <div id="versionBadge" class="version-badge">v0.7.6</div>
+            <div id="versionBadge" class="version-badge">v1.0.1</div>
         </div>
     </header>
 
@@ -60,9 +55,9 @@
         <div class="sidebar-spacer"></div>
         <div class="sidebar-section-label">APPLICATION</div>
         <nav class="nav-list compact">
-            <button id="openExportsBtn" class="nav-item"><span class="nav-icon">□</span><span>Exports</span></button>
-            <button id="openLogsBtn" class="nav-item"><span class="nav-icon">⌁</span><span>Logs</span></button>
-            <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+            <button id="openRecentBtn" class="nav-item" type="button"><span class="nav-icon">◷</span><span>Recent Projects</span></button>
+            <button id="openExportsBtn" class="nav-item" type="button"><span class="nav-icon">□</span><span>Exports</span></button>
+            <button id="openLogsBtn" class="nav-item" type="button"><span class="nav-icon">⌁</span><span>Logs</span></button>
         </nav>
 
         <div class="sidebar-footer">
@@ -75,120 +70,51 @@
 
     <main class="main-content">
 
-        <section id="page-home" class="page active cvm-v07-home-page">
-            <section class="cvm-v07-home-hero">
-                <div class="cvm-v07-home-copy">
-                    <div class="eyebrow" data-v07-i18n="home_eyebrow">CREATE YOUR WAY</div>
-                    <h1>
-                        <span data-v07-i18n="home_title_main">Build your CV</span>
-                        <span class="cvm-v07-gradient-text" data-v07-i18n="home_title_accent">your way.</span>
-                    </h1>
-                    <p data-v07-i18n="home_intro">Choose the guided CV builder for fast, structured editing or open LaTeX Studio for complete code-level control.</p>
+        <section id="page-home" class="page active cvm-v101-home-page">
+            <div class="cvm-v101-home-board" aria-label="CV Maker creation options">
+                <button id="newCvBtn" class="cvm-v101-home-tile cvm-v101-home-tile--create" type="button">
+                    <span class="cvm-v101-home-shade"></span>
+                    <span class="cvm-v101-home-label">
+                        <small>EASY STEPS</small>
+                        <strong>Create CV</strong>
+                        <span>Guided steps</span>
+                    </span>
+                </button>
 
-                    <div class="cvm-v07-mode-grid">
-                        <button id="newCvBtn" class="cvm-v07-mode-card cvm-v07-mode-card--easy" type="button">
-                            <span class="cvm-v07-mode-icon">01</span>
-                            <span class="cvm-v07-mode-copy">
-                                <span class="cvm-v07-mode-kicker" data-v07-i18n="easy_badge">EASY STEPS</span>
-                                <strong data-v07-i18n="easy_title">Create CV</strong>
-                                <small data-v07-i18n="easy_desc">Guided fields, live HTML preview, ATS tools and one-click export.</small>
-                            </span>
-                            <span class="cvm-v07-mode-arrow">→</span>
-                        </button>
+                <button id="cvmLatexHomeBtn" class="cvm-v101-home-tile cvm-v101-home-tile--latex" type="button">
+                    <span class="cvm-v101-home-shade"></span>
+                    <span class="cvm-v101-home-label">
+                        <small>ADVANCED</small>
+                        <strong>Customize with LaTeX</strong>
+                    </span>
+                </button>
 
-                        <button id="cvmLatexHomeBtn" class="cvm-v07-mode-card cvm-v07-mode-card--latex" type="button">
-                            <span class="cvm-v07-mode-icon">{ }</span>
-                            <span class="cvm-v07-mode-copy">
-                                <span class="cvm-v07-mode-kicker" data-v07-i18n="latex_badge">ADVANCED</span>
-                                <strong data-v07-i18n="latex_title">Customize with LaTeX</strong>
-                                <small data-v07-i18n="latex_desc">Edit raw LaTeX, recompile on demand and control every detail.</small>
-                            </span>
-                            <span class="cvm-v07-mode-arrow">→</span>
-                        </button>
-                    </div>
+                <button id="openProjectBtn" class="cvm-v101-home-tile cvm-v101-home-tile--open" type="button">
+                    <span class="cvm-v101-home-label cvm-v101-home-label--dark">
+                        <small>CONTINUE</small>
+                        <strong>Open Project</strong>
+                    </span>
+                </button>
 
-                    <div class="hero-actions cvm-v07-home-actions">
-                        <button id="openProjectBtn" class="secondary-button" type="button" data-v07-i18n="open_project">Open project</button>
-                        <button id="demoBtn" class="text-button" type="button" data-v07-i18n="demo_cv">Try demo CV</button>
-                    </div>
+                <button id="demoBtn" class="cvm-v101-home-tile cvm-v101-home-tile--demo" type="button">
+                    <span class="cvm-v101-home-label cvm-v101-home-label--dark">
+                        <small>EXPLORE</small>
+                        <strong>Try Demo CV</strong>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <section id="page-recent-manager" class="page cvm-manager-page cvm-v101-recent-page">
+            <div class="page-heading">
+                <div>
+                    <div class="eyebrow">PROJECTS</div>
+                    <h1>Recent Projects</h1>
+                    <p>Open one of your recently used CV Maker projects.</p>
                 </div>
-
-                <div class="cvm-v07-home-visual cvm-v074-home-visual" aria-hidden="true">
-                    <div class="cvm-v07-visual-grid"></div>
-
-                    <div class="cvm-v074-cv-scene">
-                        <div class="cvm-v074-paper-shadow"></div>
-
-                        <article class="cvm-v074-cv-paper">
-                            <header class="cvm-v074-cv-head">
-                                <div>
-                                    <div class="cvm-v074-cv-name">YOUR NAME</div>
-                                    <div class="cvm-v074-cv-role">DATA & BUSINESS ANALYST</div>
-                                </div>
-                                <span class="cvm-v074-ready-pill">CV READY</span>
-                            </header>
-
-                            <div class="cvm-v074-contact-line">
-                                Paris · email@example.com · LinkedIn · Portfolio
-                            </div>
-
-                            <section class="cvm-v074-cv-section">
-                                <strong>PROFILE</strong>
-                                <i></i><i></i>
-                            </section>
-
-                            <section class="cvm-v074-cv-section">
-                                <strong>EXPERIENCE</strong>
-                                <div class="cvm-v074-job-row"><b>Performance & Data Analyst</b><span>2026</span></div>
-                                <i></i><i class="short"></i>
-                            </section>
-
-                            <section class="cvm-v074-cv-section compact">
-                                <strong>SKILLS</strong>
-                                <div class="cvm-v074-skill-row">
-                                    <span>SQL</span><span>Python</span><span>Power BI</span><span>Excel</span>
-                                </div>
-                            </section>
-                        </article>
-
-                        <div class="cvm-v074-code-card cvm-v074-code-card--one">
-                            <small>LATEX SOURCE</small>
-                            <code>\section{Experience}</code>
-                            <code>\textbf{Impact}</code>
-                            <code>\begin{itemize}</code>
-                        </div>
-
-                        <div class="cvm-v074-code-card cvm-v074-code-card--two">
-                            <small>STRUCTURED DATA</small>
-                            <code>skills: [SQL, Python]</code>
-                            <code>layout: ats_classic</code>
-                        </div>
-
-                        <div class="cvm-v074-flow cvm-v074-flow--one"><span>→</span></div>
-                        <div class="cvm-v074-flow cvm-v074-flow--two"><span>→</span></div>
-
-                        <div class="cvm-v074-status-float">
-                            <span class="cvm-v07-status-dot"></span>
-                            <div><strong>2 creation modes</strong><small>Guided builder + LaTeX</small></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section-block cvm-v07-home-strip">
-                <div class="section-heading">
-                    <div>
-                        <div class="eyebrow" data-v07-i18n="home_flow_eyebrow">CVM WORKFLOW</div>
-                        <h2 data-v07-i18n="home_flow_title">Fast when you want it. Flexible when you need it.</h2>
-                    </div>
-                    <div class="status-pill ready" data-v07-i18n="ready">Ready</div>
-                </div>
-                <div class="feature-grid cvm-v07-feature-grid">
-                    <article class="feature-card"><div class="feature-icon">01</div><div><h3 data-v07-i18n="flow_one_title">Create</h3><p data-v07-i18n="flow_one_desc">Use guided fields or write your own LaTeX.</p></div></article>
-                    <article class="feature-card"><div class="feature-icon">02</div><div><h3 data-v07-i18n="flow_two_title">Preview</h3><p data-v07-i18n="flow_two_desc">Lightweight HTML preview stays responsive while you type.</p></div></article>
-                    <article class="feature-card"><div class="feature-icon">03</div><div><h3 data-v07-i18n="flow_three_title">Validate & export</h3><p data-v07-i18n="flow_three_desc">Check ATS readiness and generate clean PDF or DOCX files.</p></div></article>
-                </div>
-            </section>
+                <button id="cvmV101RefreshRecents" class="secondary-button" type="button">Refresh</button>
+            </div>
+            <div id="cvmRecentProjectCards" class="cvm-v101-recent-grid"></div>
         </section>
 
         <section id="page-content" class="page">
@@ -305,12 +231,30 @@
             </div>
         </section>
 
-        <section id="page-ats" class="page">
+        <section id="page-ats" class="page cvm-v101-ats-page">
             <div class="page-heading">
-                <div><div class="eyebrow">VALIDATION</div><h1>ATS Check</h1><p>Analyse structure and content before export.</p></div>
-                <button id="runAtsBtn" class="primary-button">Run ATS Check</button>
+                <div>
+                    <div class="eyebrow">VALIDATION</div>
+                    <h1>ATS Check</h1>
+                    <p>Choose a PDF or DOCX CV first, then run the local ATS-readiness analysis.</p>
+                </div>
             </div>
-            <div id="atsResults" class="analysis-empty">Run the check to see your CVM readiness analysis.</div>
+
+            <section class="cvm-v101-ats-upload-card">
+                <div class="cvm-v101-ats-upload-icon">⇧</div>
+                <div class="cvm-v101-ats-upload-copy">
+                    <strong>Upload your CV</strong>
+                    <span>PDF or DOCX only</span>
+                    <small id="cvmAtsSelectedFile">No file selected</small>
+                </div>
+                <button id="cvmAtsChooseFileBtn" class="secondary-button" type="button">Choose file</button>
+            </section>
+
+            <div class="cvm-v101-ats-action-row">
+                <button id="runAtsBtn" class="primary-button" type="button" disabled>Run ATS Check</button>
+            </div>
+
+            <div id="atsResults" class="analysis-empty">Choose a PDF or DOCX file to enable the ATS Check.</div>
         </section>
 
         <section id="page-export" class="page">
@@ -339,21 +283,10 @@
             <div id="exportResult" class="export-result"></div>
         </section>
 
-        <section id="page-settings" class="page">
-            <div class="page-heading">
-                <div><div class="eyebrow">APPLICATION</div><h1>Settings</h1><p>CVM keeps application preferences locally on this computer.</p></div>
-            </div>
-            <div class="settings-grid">
-                <section class="settings-card"><h2>Appearance</h2><button id="settingsThemeBtn" class="secondary-button">Toggle light / dark mode</button></section>
-                <section class="settings-card"><h2>Privacy</h2><p class="settings-copy">CV projects, autosaves and generated files remain local by default.</p></section>
-            </div>
-        </section>
-
     </main>
 </div>
 
 <div id="toastContainer" class="toast-container"></div>
-
 
 <script src="js/app.js"></script>
 <script src="js/v03_features.js"></script>
@@ -368,5 +301,6 @@
 <script src="js/product_ui.js"></script>
 <script src="js/recovery_ui.js"></script>
 <script src="js/updater_ui.js"></script>
+<script src="js/v101_core.js"></script>
 </body>
 </html>

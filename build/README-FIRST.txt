@@ -1,11 +1,11 @@
-CV Maker 1.0.0 - By Farouk
+CV Maker 1.0.1 - By Farouk
 =============================
 
 WINDOWS INSTALLATION
 --------------------
 1. Extract the downloaded ZIP file.
 2. Double-click:
-   CV-Maker-Setup-1.0.0.exe
+   CV-Maker-Setup-1.0.1.exe
 3. Follow the installer.
 4. Keep the .cvm file association enabled if you want CV Maker projects
    to open by double-clicking them.
@@ -13,7 +13,7 @@ WINDOWS INSTALLATION
 
 WINDOWS SECURITY NOTICE
 -----------------------
-CV Maker 1.0.0 is distributed without a paid code-signing certificate.
+CV Maker 1.0.1 is distributed without a paid code-signing certificate.
 Windows may therefore display a SmartScreen warning.
 
 If you downloaded CV Maker from the official GitHub release, choose
@@ -32,7 +32,7 @@ stay on your computer by default.
 FRANCAIS
 --------
 1. Extrayez le fichier ZIP téléchargé.
-2. Lancez CV-Maker-Setup-1.0.0.exe.
+2. Lancez CV-Maker-Setup-1.0.1.exe.
 3. Suivez l'assistant d'installation.
 4. Gardez l'association des fichiers .cvm activée si vous souhaitez ouvrir
    vos projets CV Maker par double-clic.
@@ -48,7 +48,7 @@ Aucune installation séparée de Python ou LaTeX n'est nécessaire.
 OFFICIAL LINKS
 --------------
 Website: https://www.damergi.com
-GitHub:  https://github.com/dafarouk/CV-Maker
+GitHub: https://github.com/dafarouk/CV-Maker
 
 THIRD-PARTY SOFTWARE
 --------------------

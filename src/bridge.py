@@ -11,7 +11,7 @@ from pathlib import Path
 import webview
 
 from src.app_logger import AppLogger
-from src.ats_checker import run_ats_check
+from src.ats_checker import run_ats_check, run_ats_file_check
 from src.config import (
     APP_AUTHOR,
     APP_FULL_NAME,
@@ -573,6 +573,99 @@ class AppBridge:
     # ATS
     # =========================================================
 
+    def select_ats_file(self) -> dict:
+        if not self._window:
+            return {
+                "ok": False,
+                "message": "Application window is not ready.",
+            }
+
+        try:
+            selection = self._window.create_file_dialog(
+                webview.FileDialog.OPEN,
+                allow_multiple=False,
+                directory=str(Path.home()),
+                file_types=(
+                    "CV files (*.pdf;*.docx)",
+                    "PDF files (*.pdf)",
+                    "Word files (*.docx)",
+                ),
+            )
+
+            if not selection:
+                return {
+                    "ok": False,
+                    "cancelled": True,
+                }
+
+            selected = (
+                selection[0]
+                if isinstance(selection, (list, tuple))
+                else selection
+            )
+
+            path = Path(selected).expanduser().resolve()
+
+            if path.suffix.lower() not in {".pdf", ".docx"}:
+                return {
+                    "ok": False,
+                    "message": "Choose a PDF or DOCX CV file.",
+                }
+
+            if not path.exists() or not path.is_file():
+                return {
+                    "ok": False,
+                    "message": "The selected CV file does not exist.",
+                }
+
+            return {
+                "ok": True,
+                "path": str(path),
+                "name": path.name,
+                "extension": path.suffix.lower(),
+                "size_bytes": path.stat().st_size,
+            }
+
+        except Exception as exc:
+            self._logger.error(
+                "ATS file selection failed.",
+                step="ATS file selection",
+                exc=exc,
+            )
+
+            return {
+                "ok": False,
+                "message": "CVM could not open the CV file selector.",
+            }
+
+    def analyze_ats_file(
+        self,
+        path: str,
+    ) -> dict:
+        try:
+            result = run_ats_file_check(path)
+
+            self._logger.success(
+                f"ATS file analysis completed ({result['score']}/100): {result.get('file_name', '')}"
+            )
+
+            return {
+                "ok": True,
+                "result": result,
+            }
+
+        except Exception as exc:
+            self._logger.error(
+                "ATS file analysis failed.",
+                step="ATS file analysis",
+                exc=exc,
+            )
+
+            return {
+                "ok": False,
+                "message": str(exc) or "CVM could not analyse this CV file.",
+            }
+
     def analyze_ats(
         self,
         project_data: dict,
@@ -631,6 +724,37 @@ class AppBridge:
 
         return folder / name
 
+    def _remember_exported_project(
+        self,
+        project: CVProject,
+    ) -> None:
+        """Persist the structured CV project after a successful export.
+
+        This keeps Recent Projects useful even when the user never pressed
+        the explicit project Save button. The PDF/DOCX remains the exported
+        document; this only stores the matching .cvm project locally so it
+        can be reopened from Recent Projects.
+        """
+        try:
+            path = self._project_manager.save(
+                project,
+                self._current_project_path,
+            )
+
+            self._current_project = project
+            self._current_project_path = path
+            self._project_active = True
+            self._dirty = False
+            self._v05.remember_project(path)
+
+        except Exception as exc:
+            # Export itself has already succeeded. Do not turn a valid PDF
+            # or DOCX export into a failure just because Recent Projects
+            # could not be updated.
+            self._logger.warning(
+                f"CV exported, but the project could not be added to Recent Projects: {exc}"
+            )
+
     def export_pdf_to_path(
         self,
         project_data: dict,
@@ -665,6 +789,10 @@ class AppBridge:
             self._record_export(
                 output_path,
                 "PDF",
+            )
+
+            self._remember_exported_project(
+                project
             )
 
             if result.get("validation", {}).get("passed"):
@@ -718,6 +846,11 @@ class AppBridge:
                     output_path,
                     "DOCX",
                 )
+
+                self._remember_exported_project(
+                    project
+                )
+
                 self._logger.success(
                     "DOCX exported successfully"
                 )
@@ -734,6 +867,84 @@ class AppBridge:
             return {
                 "ok": False,
                 "message": str(exc) or "DOCX export failed.",
+            }
+
+    def save_export_as(
+        self,
+        project_data: dict,
+        export_type: str,
+    ) -> dict:
+        if not self._window:
+            return {
+                "ok": False,
+                "message": "Application window is not ready.",
+            }
+
+        kind = str(export_type or "").strip().lower()
+
+        if kind not in {"pdf", "docx"}:
+            return {
+                "ok": False,
+                "message": "Choose PDF or DOCX.",
+            }
+
+        try:
+            defaults = self.get_export_defaults(project_data, kind)
+            extension = ".pdf" if kind == "pdf" else ".docx"
+            file_type = (
+                "PDF document (*.pdf)"
+                if kind == "pdf"
+                else "Word document (*.docx)"
+            )
+
+            selection = self._window.create_file_dialog(
+                webview.FileDialog.SAVE,
+                allow_multiple=False,
+                directory=defaults["directory"],
+                save_filename=defaults["filename"],
+                file_types=(file_type,),
+            )
+
+            if not selection:
+                return {
+                    "ok": False,
+                    "cancelled": True,
+                }
+
+            selected = (
+                selection[0]
+                if isinstance(selection, (list, tuple))
+                else selection
+            )
+
+            output_path = Path(selected).expanduser()
+
+            if output_path.suffix.lower() != extension:
+                output_path = Path(str(output_path) + extension)
+
+            if kind == "pdf":
+                return self.export_pdf_to_path(
+                    project_data,
+                    str(output_path.parent),
+                    output_path.name,
+                )
+
+            return self.export_docx_to_path(
+                project_data,
+                str(output_path.parent),
+                output_path.name,
+            )
+
+        except Exception as exc:
+            self._logger.error(
+                f"{kind.upper()} Save As failed.",
+                step=f"{kind.upper()} Save As",
+                exc=exc,
+            )
+
+            return {
+                "ok": False,
+                "message": str(exc) or f"{kind.upper()} Save As failed.",
             }
 
     # Legacy API kept so older UI code does not crash. The CVM 0.4

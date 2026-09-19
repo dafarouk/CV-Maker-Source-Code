@@ -109,7 +109,6 @@ def test_release_script_generates_github_ready_assets() -> None:
     assert "Setup EXE, ZIP and SHA256.txt" in script
 
 
-def test_current_version_is_first_public_release() -> None:
-    # The 0.7.6 Windows installer was built and functionally validated,
-    # so the first public release is now intentionally 1.0.0.
-    assert APP_VERSION == "1.0.0"
+def test_current_version_is_1_0_1() -> None:
+    # 1.0.1 is the first maintenance update after the validated 1.0.0 public release.
+    assert APP_VERSION == "1.0.1"

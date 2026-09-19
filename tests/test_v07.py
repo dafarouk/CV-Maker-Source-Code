@@ -13,7 +13,7 @@ from src.latex_workspace import LatexWorkspace
 
 
 def test_version() -> None:
-    assert APP_VERSION == "1.0.0"
+    assert APP_VERSION == "1.0.1"
 
 
 def test_home_and_assets() -> None:
@@ -28,7 +28,12 @@ def test_home_and_assets() -> None:
     assert 'css/v07.css' in index
     assert 'css/brand_damergi.css' in index
     assert 'js/v07_features.js' in index
-    assert "../assets/branding/cvm_dark.png" in index
+    assert 'js/v101_core.js' in index
+    assert 'data-theme="dark"' in index
+    assert 'id="connectionBadge"' not in index
+    assert 'id="themeToggle"' not in index
+    assert 'data-page="settings"' not in index
+    assert "../assets/branding/cvm.png" in index
     assert ".cvm-v07-home-hero" in css
     assert "#F8F6F1" in brand_css
     assert "#FFFDF9" in brand_css

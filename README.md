@@ -1,8 +1,8 @@
-# CV Maker (CVM) 1.0.0
+# CV Maker (CVM) 1.0.1
 
 Free, local-first Windows CV builder by Farouk.
 
-CV Maker 1.0.0 is the first public Windows release. It includes `.cvm` projects, a self-contained offline PDF engine, a branded installer and GitHub-ready release files.
+CV Maker 1.0.1 is the current Windows release. It builds on the validated 1.0.0 public release with UI, workflow and ATS improvements while keeping the local-first architecture.
 
 ## Native CV Maker project files
 
@@ -74,12 +74,12 @@ The command creates:
 
 ```text
 release/
-├── CV-Maker-Setup-1.0.0.exe
-├── CV-Maker-v1.0.0-Windows-x64.zip
+├── CV-Maker-Setup-1.0.1.exe
+├── CV-Maker-v1.0.1-Windows-x64.zip
 └── SHA256.txt
 ```
 
-Version `1.0.0` is the first public release, promoted after the 0.7.6 Windows installer and installed-app workflow were successfully validated.
+Version `1.0.1` is the first maintenance update after the validated 1.0.0 public release.
 
 
 ## Updates

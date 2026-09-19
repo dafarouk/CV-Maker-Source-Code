@@ -120,8 +120,6 @@ def main() -> None:
 
     required_ids = {
         "appShell",
-        "connectionBadge",
-        "themeToggle",
         "editorRoot",
         "cvPreview",
         "atsResults",
@@ -136,6 +134,13 @@ def main() -> None:
     assert required_ids.issubset(
         html_ids
     )
+
+    assert "connectionBadge" not in html_ids
+    assert "themeToggle" not in html_ids
+    assert "settingsThemeBtn" not in html_ids
+    assert 'data-page="settings"' not in html
+    assert 'data-theme="dark"' in html
+    assert 'js/v101_core.js' in html
 
     assert "pywebviewready" in js
     assert "startBridgeRetry" in js

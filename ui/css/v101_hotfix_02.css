@@ -1,0 +1,149 @@
+/* CVM hotfix
+   Fixes:
+   1) remove the homepage center hole completely
+   2) keep bigger top-left logo/text
+*/
+
+/* ----------------------------------------
+   TOP LEFT BRAND SIZE
+---------------------------------------- */
+html[data-theme="dark"] .topbar,
+.topbar {
+    min-height: 92px !important;
+    height: 92px !important;
+    padding: 0 28px !important;
+}
+
+.brand-area {
+    gap: 18px !important;
+}
+
+.brand-logo-wrap,
+html[data-theme="dark"] .brand-logo-wrap {
+    width: 138px !important;
+    height: 84px !important;
+}
+
+.brand-logo,
+html[data-theme="dark"] .brand-logo {
+    width: 132px !important;
+    height: 80px !important;
+}
+
+.brand-copy {
+    gap: 3px !important;
+}
+
+.brand-name {
+    font-size: 22px !important;
+    line-height: 1.03 !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.028em !important;
+}
+
+.brand-author {
+    font-size: 0.88em !important;
+    font-weight: 800 !important;
+}
+
+.brand-subtitle {
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+}
+
+/* ----------------------------------------
+   HOMEPAGE: REMOVE THE HOLE FOR REAL
+---------------------------------------- */
+
+/* board */
+.cvm-v101-home-board {
+    gap: 14px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+}
+
+/* all 4 blocks become normal visible blocks */
+.cvm-v101-home-tile,
+.cvm-v101-home-tile--create,
+.cvm-v101-home-tile--latex,
+.cvm-v101-home-tile--open,
+.cvm-v101-home-tile--demo {
+    margin: 0 !important;
+    clip-path: none !important;
+    overflow: hidden !important;
+    border-radius: 24px !important;
+    position: relative !important;
+}
+
+/* kill every fake tetris extension that was creating the hole */
+.cvm-v101-home-tile::before,
+.cvm-v101-home-tile::after,
+.cvm-v101-home-tile--create::before,
+.cvm-v101-home-tile--create::after,
+.cvm-v101-home-tile--latex::before,
+.cvm-v101-home-tile--latex::after,
+.cvm-v101-home-tile--open::before,
+.cvm-v101-home-tile--open::after,
+.cvm-v101-home-tile--demo::before,
+.cvm-v101-home-tile--demo::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* keep text above image overlays */
+.cvm-v101-home-label,
+.cvm-v101-home-shade {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* make top cards clean */
+.cvm-v101-home-tile--create,
+.cvm-v101-home-tile--latex {
+    background-size: 112% !important;
+    background-position: center center !important;
+}
+
+/* gold blocks */
+.cvm-v101-home-tile--open,
+.cvm-v101-home-tile--demo {
+    background: linear-gradient(135deg, #e7c98d 0%, #d6b06c 52%, #edd39a 100%) !important;
+    border: 1px solid rgba(208, 170, 112, 0.35) !important;
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+/* responsive */
+@media (max-width: 1480px) {
+    .brand-logo-wrap,
+    html[data-theme="dark"] .brand-logo-wrap {
+        width: 126px !important;
+        height: 78px !important;
+    }
+
+    .brand-logo,
+    html[data-theme="dark"] .brand-logo {
+        width: 120px !important;
+        height: 74px !important;
+    }
+
+    .brand-name {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 1180px) {
+    .cvm-v101-home-board {
+        gap: 10px !important;
+    }
+
+    .cvm-v101-home-tile,
+    .cvm-v101-home-tile--create,
+    .cvm-v101-home-tile--latex,
+    .cvm-v101-home-tile--open,
+    .cvm-v101-home-tile--demo {
+        border-radius: 20px !important;
+    }
+}

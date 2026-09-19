@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter
+from pathlib import Path
 from typing import Any
 
 from src.design_utils import section_enabled, valid_photo_path
@@ -424,6 +425,329 @@ def run_ats_check(
         "checks_run": len(issues) + len(warnings) + len(passed),
         "note": (
             "CVM performs a local ATS-readiness audit of content, structure and the generated PDF text layer. "
+            "It is not a score from Workday, Taleo, Greenhouse, SuccessFactors or any other employer ATS."
+        ),
+    }
+
+
+# ============================================================
+# FILE-BASED ATS CHECK (PDF / DOCX)
+# ============================================================
+
+ATS_FILE_EXTENSIONS = {".pdf", ".docx"}
+
+_SECTION_ALIASES = {
+    "profile": (
+        "profile", "professional profile", "summary", "professional summary",
+        "profil", "profil professionnel", "résumé", "resume",
+    ),
+    "experience": (
+        "experience", "professional experience", "work experience",
+        "employment", "expérience", "expériences", "expérience professionnelle",
+        "expériences professionnelles",
+    ),
+    "education": (
+        "education", "academic background", "studies", "formation",
+        "formations", "parcours académique",
+    ),
+    "skills": (
+        "skills", "technical skills", "core skills", "competencies",
+        "compétences", "compétences techniques",
+    ),
+}
+
+
+def _normalize_heading_line(value: str) -> str:
+    value = re.sub(r"[^A-Za-zÀ-ÿ ]+", " ", value or "")
+    return re.sub(r"\s+", " ", value).strip().lower()
+
+
+def _contains_section(text: str, aliases: tuple[str, ...]) -> bool:
+    lines = [_normalize_heading_line(line) for line in (text or "").splitlines()]
+
+    for line in lines:
+        if not line or len(line) > 70:
+            continue
+
+        if any(line == alias or line.startswith(alias + " ") for alias in aliases):
+            return True
+
+    return False
+
+
+def _extract_pdf_text(path: Path) -> dict[str, Any]:
+    import fitz
+
+    pages_text: list[str] = []
+    block_count = 0
+
+    with fitz.open(path) as document:
+        page_count = document.page_count
+
+        for page in document:
+            page_text = page.get_text("text") or ""
+            pages_text.append(page_text)
+            block_count += len(page.get_text("blocks") or [])
+
+    text = "\n".join(pages_text).strip()
+
+    return {
+        "text": text,
+        "page_count": page_count,
+        "block_count": block_count,
+        "table_count": 0,
+        "format": "PDF",
+        "selectable_text": bool(text and len(_words(text)) >= 20),
+    }
+
+
+def _extract_docx_text(path: Path) -> dict[str, Any]:
+    from docx import Document
+
+    document = Document(str(path))
+    chunks: list[str] = []
+
+    for paragraph in document.paragraphs:
+        value = paragraph.text.strip()
+        if value:
+            chunks.append(value)
+
+    table_count = len(document.tables)
+
+    for table in document.tables:
+        for row in table.rows:
+            values = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+            if values:
+                chunks.append(" | ".join(values))
+
+    for section in document.sections:
+        for paragraph in section.header.paragraphs:
+            value = paragraph.text.strip()
+            if value:
+                chunks.append(value)
+
+        for paragraph in section.footer.paragraphs:
+            value = paragraph.text.strip()
+            if value:
+                chunks.append(value)
+
+    text = "\n".join(chunks).strip()
+
+    return {
+        "text": text,
+        "page_count": 0,
+        "block_count": len(document.paragraphs),
+        "table_count": table_count,
+        "format": "DOCX",
+        "selectable_text": bool(text and len(_words(text)) >= 20),
+    }
+
+
+def _extract_cv_file(path: Path) -> dict[str, Any]:
+    suffix = path.suffix.lower()
+
+    if suffix == ".pdf":
+        return _extract_pdf_text(path)
+
+    if suffix == ".docx":
+        return _extract_docx_text(path)
+
+    raise ValueError("ATS Check supports PDF and DOCX files only.")
+
+
+def run_ats_file_check(file_path: str | Path) -> dict:
+    """
+    Analyse a user-selected PDF or DOCX CV.
+
+    This deliberately operates on the document itself instead of CVM's current
+    structured editor project. The result keeps the same UI contract as the
+    original structured ATS checker: score, label, issues, warnings, passed,
+    technical, checks_run and note.
+    """
+
+    path = Path(file_path).expanduser().resolve()
+
+    if not path.exists() or not path.is_file():
+        raise ValueError("The selected CV file does not exist.")
+
+    if path.suffix.lower() not in ATS_FILE_EXTENSIONS:
+        raise ValueError("ATS Check supports PDF and DOCX files only.")
+
+    extracted = _extract_cv_file(path)
+    text = extracted["text"]
+    words = _words(text)
+    word_count = len(words)
+
+    deductions = 0
+    issues: list[str] = []
+    warnings: list[str] = []
+    passed: list[str] = []
+    technical: list[str] = []
+
+    # --------------------------------------------------------
+    # TEXT EXTRACTION / BASIC PARSABILITY
+    # --------------------------------------------------------
+
+    if extracted["selectable_text"]:
+        passed.append(f"{extracted['format']} contains extractable text for ATS parsing.")
+    else:
+        deductions += 30
+        issues.append(
+            "Very little extractable text was found. The CV may be image-based, scanned, empty or difficult for an ATS to parse."
+        )
+
+    if word_count >= 150:
+        passed.append("The document contains enough text for a meaningful CV structure check.")
+    elif word_count >= 60:
+        deductions += 6
+        warnings.append("The CV contains relatively little extractable text.")
+    else:
+        deductions += 12
+        issues.append("The CV contains too little extractable text for a reliable ATS-readiness review.")
+
+    if word_count > 1300:
+        deductions += 4
+        warnings.append("The CV is unusually text-heavy; review density and relevance.")
+
+    # --------------------------------------------------------
+    # CONTACT INFORMATION
+    # --------------------------------------------------------
+
+    emails = _emails(text)
+
+    if emails:
+        passed.append("An email address is recoverable from the document text.")
+    else:
+        deductions += 10
+        issues.append("No email address was detected in the extracted CV text.")
+
+    phone_candidates = re.findall(r"(?:\+?\d[\d\s().-]{6,}\d)", text)
+    phone_candidates = [
+        candidate
+        for candidate in phone_candidates
+        if 8 <= len(re.sub(r"\D", "", candidate)) <= 16
+    ]
+
+    if phone_candidates:
+        passed.append("A phone number is recoverable from the document text.")
+    else:
+        deductions += 4
+        warnings.append("No clear phone number was detected in the extracted CV text.")
+
+    if re.search(r"linkedin(?:\.com)?|https?://|www\.", text, re.I):
+        passed.append("A professional web or LinkedIn reference is present in the document text.")
+
+    # --------------------------------------------------------
+    # SECTION STRUCTURE
+    # --------------------------------------------------------
+
+    found_sections: list[str] = []
+
+    for section_name, aliases in _SECTION_ALIASES.items():
+        if _contains_section(text, aliases):
+            found_sections.append(section_name)
+            passed.append(f"A recognisable {section_name} section was detected.")
+        else:
+            deductions += 4
+            warnings.append(f"No clear {section_name} section heading was detected.")
+
+    if len(found_sections) >= 3:
+        passed.append("The CV uses several conventional section headings that are easy to identify.")
+
+    # --------------------------------------------------------
+    # BULLET / CONTENT READABILITY
+    # --------------------------------------------------------
+
+    bullet_lines = [
+        line.strip()
+        for line in text.splitlines()
+        if re.match(r"^\s*(?:[-–—•▪◦]|\d+[.)])\s+", line)
+    ]
+
+    long_bullets = [
+        line
+        for line in bullet_lines
+        if len(_words(line)) > 40
+    ]
+
+    if bullet_lines:
+        passed.append(f"{len(bullet_lines)} bullet-style line(s) were recovered from the document.")
+
+    if long_bullets:
+        deductions += min(6, len(long_bullets))
+        warnings.append(
+            f"{len(long_bullets)} extracted bullet(s) are long and may be harder to scan quickly."
+        )
+
+    suspicious = sorted(glyph for glyph in SUSPICIOUS_GLYPHS if glyph in text)
+
+    if suspicious:
+        deductions += min(4, len(suspicious))
+        warnings.append(
+            "Decorative symbols were detected in the extracted text: "
+            + " ".join(suspicious)
+            + ". Plain text is generally safer for ATS parsing."
+        )
+    else:
+        passed.append("No risky decorative glyphs were detected in the extracted text.")
+
+    # --------------------------------------------------------
+    # FORMAT-SPECIFIC CHECKS
+    # --------------------------------------------------------
+
+    if extracted["format"] == "PDF":
+        page_count = int(extracted.get("page_count", 0) or 0)
+
+        if 1 <= page_count <= 2:
+            passed.append(f"PDF length is {page_count} page(s).")
+        elif page_count > 2:
+            deductions += 4
+            warnings.append(f"The PDF is {page_count} pages long; verify that all content is necessary.")
+
+        technical.append(
+            f"PDF extraction: {len(text)} characters, {word_count} words, "
+            f"{extracted.get('block_count', 0)} text blocks, {page_count} page(s)."
+        )
+
+    else:
+        table_count = int(extracted.get("table_count", 0) or 0)
+
+        if table_count:
+            deductions += min(6, table_count * 2)
+            warnings.append(
+                f"The DOCX contains {table_count} table(s). Complex table-based layouts can be less reliable in some ATS parsers."
+            )
+        else:
+            passed.append("No Word tables were detected in the DOCX structure.")
+
+        technical.append(
+            f"DOCX extraction: {len(text)} characters, {word_count} words, "
+            f"{extracted.get('block_count', 0)} paragraph block(s), {table_count} table(s)."
+        )
+
+    score = max(0, min(100, 100 - deductions))
+
+    if score >= 90:
+        label = "Strong"
+    elif score >= 78:
+        label = "Good"
+    elif score >= 65:
+        label = "Needs review"
+    else:
+        label = "Needs work"
+
+    return {
+        "score": score,
+        "label": label,
+        "issues": issues,
+        "warnings": warnings,
+        "passed": passed,
+        "technical": technical,
+        "checks_run": len(issues) + len(warnings) + len(passed),
+        "file_name": path.name,
+        "file_type": extracted["format"],
+        "note": (
+            "CVM performs a local ATS-readiness review of the selected PDF or DOCX using extracted text and document structure. "
             "It is not a score from Workday, Taleo, Greenhouse, SuccessFactors or any other employer ATS."
         ),
     }

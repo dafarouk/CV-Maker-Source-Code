@@ -1,0 +1,1296 @@
+/* ==========================================================
+   CV MAKER 0.6 — SEPARATE EDITOR EXPERIENCE
+   ========================================================== */
+
+/* Main application stays clean. Editing actions live in the editor overlay. */
+#saveProjectBtn,
+#quickPdfBtn,
+#quickDocxBtn,
+.cvm-v05-toolbar,
+.sidebar .nav-item[data-page="content"],
+.sidebar .nav-item[data-page="design"] {
+    display: none !important;
+}
+
+/* The old motion experiment stays disabled permanently. */
+#page-home::before,
+#page-home::after,
+#page-home .hero-card::before,
+#page-home .hero-card::after,
+.cvm-home-motion-layer,
+.cvm-home-floating-logo,
+.cvm-home-static-layer,
+.cvm-home-grid,
+.cvm-home-pattern,
+.cvm-home-watermark,
+#cvmHomeMotionToggle {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+    background-image: none !important;
+}
+
+/* ----------------------------------------------------------
+   EDITOR OVERLAY
+   ---------------------------------------------------------- */
+
+body.cvm-editor-open {
+    overflow: hidden !important;
+}
+
+body.cvm-editor-open > #appShell {
+    filter: blur(8px) saturate(.86);
+    transform: scale(.995);
+    pointer-events: none;
+    user-select: none;
+}
+
+#appShell {
+    transition:
+        filter .18s ease,
+        transform .18s ease;
+}
+
+.cvm-editor-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    place-items: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, .36);
+    backdrop-filter: blur(2px);
+}
+
+.cvm-editor-overlay.open {
+    display: grid;
+}
+
+.cvm-editor-window {
+    width: min(1540px, 98vw);
+    height: min(940px, 96vh);
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(99, 102, 241, .20);
+    background: var(--surface, #fff);
+    box-shadow:
+        0 34px 90px rgba(15, 23, 42, .28),
+        0 0 0 1px rgba(255, 255, 255, .40) inset;
+}
+
+.cvm-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border, #dde3ea);
+    background: color-mix(in srgb, var(--surface, #fff) 92%, #4f46e5 8%);
+}
+
+.cvm-editor-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 220px;
+}
+
+.cvm-editor-brand img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 11px;
+}
+
+.cvm-editor-brand strong {
+    display: block;
+    font-size: 15px;
+}
+
+.cvm-editor-brand small {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted, #667085);
+}
+
+.cvm-editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.cvm-editor-tool {
+    min-height: 36px;
+    padding: 0 11px;
+    border-radius: 10px;
+    border: 1px solid var(--border, #dde3ea);
+    background: var(--surface, #fff);
+    color: var(--text, #111827);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cvm-editor-tool:hover {
+    border-color: rgba(79, 70, 229, .44);
+    transform: translateY(-1px);
+}
+
+.cvm-editor-tool.primary {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, #4f46e5, #7047eb);
+}
+
+.cvm-editor-tool.danger-subtle {
+    color: var(--muted, #667085);
+}
+
+.cvm-editor-tabs {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border, #dde3ea);
+    background: var(--surface-alt, #f6f8fc);
+}
+
+.cvm-editor-tab {
+    min-height: 36px;
+    padding: 0 15px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted, #667085);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cvm-editor-tab.active {
+    color: #fff;
+    background: linear-gradient(135deg, #4f46e5, #7047eb);
+    box-shadow: 0 8px 22px rgba(79, 70, 229, .20);
+}
+
+.cvm-editor-body {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--app-bg, #f6f8fc);
+}
+
+.cvm-editor-pages {
+    height: 100%;
+    overflow: auto;
+    padding: 18px;
+}
+
+.cvm-editor-overlay .page {
+    display: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.cvm-editor-overlay .page.cvm-editor-page-active {
+    display: block !important;
+}
+
+.cvm-editor-overlay #page-content > .page-heading,
+.cvm-editor-overlay #page-design > .page-heading {
+    display: none !important;
+}
+
+/* Completeness stays available without wasting a large horizontal band. */
+.cvm-editor-completeness-mount {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.cvm-editor-completeness-mount .cvm-completeness {
+    min-width: 150px;
+    min-height: 34px;
+    padding: 6px 10px;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* ----------------------------------------------------------
+   LANGUAGE GATE
+   ---------------------------------------------------------- */
+
+.cvm-editor-language-gate {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    place-items: center;
+    padding: 32px;
+    background:
+        radial-gradient(circle at 20% 15%, rgba(79, 70, 229, .11), transparent 34%),
+        radial-gradient(circle at 82% 84%, rgba(16, 185, 129, .08), transparent 36%),
+        var(--surface, #fff);
+}
+
+.cvm-editor-language-gate.visible {
+    display: grid;
+}
+
+.cvm-language-card {
+    width: min(620px, 100%);
+    padding: 34px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 24px;
+    background: var(--surface, #fff);
+    text-align: center;
+    box-shadow: 0 28px 80px rgba(15, 23, 42, .13);
+}
+
+.cvm-language-card h2 {
+    margin: 7px 0 8px;
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+.cvm-language-card p {
+    margin: 0 auto 24px;
+    max-width: 470px;
+    color: var(--muted, #667085);
+}
+
+.cvm-language-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.cvm-language-choice {
+    min-height: 120px;
+    display: grid;
+    place-items: center;
+    gap: 5px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 18px;
+    background: var(--surface-alt, #f6f8fc);
+    color: var(--text, #111827);
+    cursor: pointer;
+    font: inherit;
+}
+
+.cvm-language-choice:hover,
+.cvm-language-choice.selected {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .10);
+}
+
+.cvm-language-flag {
+    display: block;
+    width: 58px;
+    height: 38px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .10);
+    box-shadow: 0 7px 18px rgba(15, 23, 42, .10);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.cvm-language-choice strong {
+    font-size: 16px;
+    color: inherit;
+}
+
+/* ----------------------------------------------------------
+   MODIFY CARD ON MAIN HOME
+   ---------------------------------------------------------- */
+
+.cvm-modify-card {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border: 1px solid rgba(79, 70, 229, .20);
+    border-radius: 16px;
+    background: rgba(79, 70, 229, .055);
+}
+
+body.cvm-has-project .cvm-modify-card {
+    display: flex;
+}
+
+.cvm-modify-card p {
+    margin: 3px 0 0;
+    color: var(--muted, #667085);
+}
+
+/* ----------------------------------------------------------
+   SPACING EDITOR
+   ---------------------------------------------------------- */
+
+.cvm-spacing-card {
+    grid-column: 1 / -1;
+}
+
+.cvm-spacing-intro {
+    margin-bottom: 16px;
+    color: var(--muted, #667085);
+}
+
+.cvm-spacing-group {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border, #dde3ea);
+}
+
+.cvm-spacing-group:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.cvm-spacing-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.cvm-spacing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px 16px;
+}
+
+.cvm-spacing-control {
+    display: grid;
+    grid-template-columns: minmax(120px, .8fr) minmax(130px, 1.2fr) 72px;
+    align-items: center;
+    gap: 10px;
+}
+
+.cvm-spacing-control > span {
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.cvm-spacing-control input[type="range"] {
+    width: 100%;
+    accent-color: #4f46e5;
+}
+
+.cvm-spacing-value {
+    min-height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 9px;
+    background: var(--surface-alt, #f6f8fc);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------
+   CUSTOM CVM DATE / YEAR PICKERS
+   ---------------------------------------------------------- */
+
+.cvm-month-field {
+    cursor: pointer !important;
+    caret-color: transparent;
+}
+
+.cvm-picker-popover {
+    position: fixed;
+    z-index: 20000;
+    width: 300px;
+    display: none;
+    padding: 12px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 16px;
+    background: var(--surface, #fff);
+    box-shadow: 0 22px 60px rgba(15, 23, 42, .23);
+}
+
+.cvm-picker-popover.visible {
+    display: block;
+}
+
+.cvm-picker-head {
+    display: grid;
+    grid-template-columns: 38px 1fr 38px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.cvm-picker-head strong {
+    text-align: center;
+}
+
+.cvm-picker-nav {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 10px;
+    background: var(--surface-alt, #f6f8fc);
+    color: inherit;
+    cursor: pointer;
+}
+
+.cvm-month-grid,
+.cvm-year-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.cvm-month-option,
+.cvm-year-option {
+    min-height: 38px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: var(--surface-alt, #f6f8fc);
+    color: inherit;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cvm-month-option:hover,
+.cvm-year-option:hover,
+.cvm-month-option.selected,
+.cvm-year-option.selected {
+    color: #fff;
+    background: #4f46e5;
+}
+
+.cvm-picker-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.cvm-picker-footer button {
+    border: 0;
+    background: transparent;
+    color: #4f46e5;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ----------------------------------------------------------
+   SOCIAL URL GUIDANCE
+   ---------------------------------------------------------- */
+
+.cvm-social-hint {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted, #667085);
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.cvm-social-hint.warning {
+    color: #b45309;
+}
+
+/* ----------------------------------------------------------
+   PREVIEW SAFETY / PROFILE WIDTH
+   ---------------------------------------------------------- */
+
+.cv-preview-paper,
+.cv-preview-paper * {
+    box-sizing: border-box;
+}
+
+.cv-preview-paper {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.cv-preview-paper .preview-entry,
+.cv-preview-paper .preview-entry > div,
+.cv-preview-paper .preview-contact,
+.cv-preview-paper .preview-bullet {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.cv-preview-paper .preview-section-title,
+.cv-preview-paper .preview-top-line {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ----------------------------------------------------------
+   EXPORTS / LOGS IN-APP MANAGERS
+   ---------------------------------------------------------- */
+
+.cvm-manager-page .page-heading {
+    align-items: flex-start;
+}
+
+.cvm-manager-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cvm-manager-path {
+    margin: 10px 0 18px;
+    padding: 11px 13px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 12px;
+    background: var(--surface-alt, #f6f8fc);
+    color: var(--muted, #667085);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.cvm-manager-list {
+    display: grid;
+    gap: 10px;
+}
+
+.cvm-manager-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 15px;
+    background: var(--surface, #fff);
+}
+
+.cvm-manager-row h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.cvm-manager-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 12px;
+    color: var(--muted, #667085);
+    font-size: 11px;
+}
+
+.cvm-manager-actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.cvm-log-level {
+    min-width: 66px;
+    display: inline-flex;
+    justify-content: center;
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: rgba(100, 116, 139, .10);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.cvm-log-level.ERROR {
+    color: #b42318;
+    background: rgba(180, 35, 24, .10);
+}
+
+.cvm-log-level.WARNING {
+    color: #b45309;
+    background: rgba(180, 83, 9, .10);
+}
+
+.cvm-log-level.SUCCESS {
+    color: #15803d;
+    background: rgba(21, 128, 61, .10);
+}
+
+.cvm-log-event {
+    display: grid;
+    grid-template-columns: 74px 80px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border, #dde3ea);
+    font-size: 12px;
+}
+
+.cvm-log-event:last-child {
+    border-bottom: 0;
+}
+
+.cvm-log-viewer {
+    max-height: 58vh;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 14px;
+    border-radius: 12px;
+    background: #0f172a;
+    color: #e2e8f0;
+    font: 11px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+/* ----------------------------------------------------------
+   CVM 0.6.1 FINAL UI OWNERSHIP
+   ---------------------------------------------------------- */
+
+/* Country presets were removed from the product UI. The backend keeps
+   legacy fields only so old .cvproject files remain compatible. */
+.cvm-editor-overlay .cvm-v05-panel:has(#cvmCountryPreset),
+.cvm-editor-overlay .settings-card:has(#cvmCountryPreset) {
+    display: none !important;
+}
+
+/* Project dates are a single year field in 0.6.1. */
+.cvm-editor-overlay input[data-collection="projects"][data-key="year"] {
+    max-width: 100%;
+}
+
+/* Polished About CVM content. */
+.cvm-about-v06 {
+    display: grid;
+    gap: 18px;
+}
+
+.cvm-about-v06-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(79, 70, 229, .10),
+            rgba(124, 58, 237, .045)
+        );
+    border: 1px solid rgba(79, 70, 229, .14);
+}
+
+.cvm-about-v06-logo {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, .10);
+}
+
+.cvm-about-v06-logo img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.cvm-about-v06-title-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+.cvm-about-v06-title-row strong {
+    font-size: 22px;
+}
+
+.cvm-about-v06-title-row span {
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #4f46e5;
+    background: rgba(79, 70, 229, .10);
+    font-size: 11px;
+    font-weight: 850;
+}
+
+.cvm-about-v06-hero p {
+    margin: 5px 0 0;
+    color: var(--muted, #667085);
+}
+
+.cvm-about-v06-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.cvm-about-v06-grid article {
+    min-height: 118px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 13px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 15px;
+    background: var(--surface-alt, #f6f8fc);
+}
+
+.cvm-about-v06-grid article strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cvm-about-v06-grid article p {
+    margin: 0;
+    color: var(--muted, #667085);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.cvm-about-v06-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    color: #4f46e5;
+    background: rgba(79, 70, 229, .10);
+    font-weight: 900;
+}
+
+.cvm-about-v06-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cvm-about-v06-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(79, 70, 229, .18);
+    color: #4f46e5;
+    background: rgba(79, 70, 229, .06);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.cvm-about-v06-details {
+    padding-top: 4px;
+    color: var(--muted, #667085);
+}
+
+.cvm-about-v06-details summary {
+    cursor: pointer;
+    font-weight: 750;
+}
+
+.cvm-about-v06-details p {
+    margin: 8px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* ----------------------------------------------------------
+   DARK MODE
+   ---------------------------------------------------------- */
+
+[data-theme="dark"] .cvm-editor-window,
+[data-theme="dark"] .cvm-language-card,
+[data-theme="dark"] .cvm-picker-popover,
+[data-theme="dark"] .cvm-manager-row {
+    background: #111523;
+    border-color: #30374f;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .cvm-language-choice {
+    background: #171b2a !important;
+    border-color: #30374f !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .cvm-language-choice strong {
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .cvm-language-choice:hover,
+[data-theme="dark"] .cvm-language-choice.selected {
+    background: #1d2234 !important;
+    border-color: #7067ff !important;
+}
+
+[data-theme="dark"] .cvm-about-v06-grid article {
+    background: #171b2a;
+    border-color: #30374f;
+}
+
+[data-theme="dark"] .cvm-about-v06-logo {
+    background: #1d2234;
+}
+
+[data-theme="dark"] .cvm-editor-header {
+    background:
+        linear-gradient(135deg, rgba(79, 70, 229, .16), rgba(17, 21, 35, .98));
+    border-color: #30374f;
+}
+
+[data-theme="dark"] .cvm-editor-tabs,
+[data-theme="dark"] .cvm-spacing-value,
+[data-theme="dark"] .cvm-picker-nav,
+[data-theme="dark"] .cvm-month-option,
+[data-theme="dark"] .cvm-year-option,
+[data-theme="dark"] .cvm-manager-path {
+    background: #171b2a;
+    border-color: #30374f;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .cvm-editor-tool {
+    background: #171b2a;
+    border-color: #30374f;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .cvm-editor-tool.primary {
+    background: linear-gradient(135deg, #5b50f3, #7449ee);
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE / ACCESSIBILITY
+   ---------------------------------------------------------- */
+
+.cvm-editor-tool:focus-visible,
+.cvm-editor-tab:focus-visible,
+.cvm-language-choice:focus-visible,
+.cvm-picker-nav:focus-visible,
+.cvm-month-option:focus-visible,
+.cvm-year-option:focus-visible {
+    outline: 3px solid rgba(79, 70, 229, .35);
+    outline-offset: 2px;
+}
+
+@media (max-width: 1050px) {
+    .cvm-about-v06-grid {
+        grid-template-columns: 1fr;
+    }
+    .cvm-editor-overlay {
+        padding: 8px;
+    }
+
+    .cvm-editor-window {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+    }
+
+    .cvm-editor-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .cvm-editor-toolbar {
+        justify-content: flex-start;
+    }
+
+    .cvm-spacing-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .cvm-language-choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cvm-spacing-control {
+        grid-template-columns: 1fr;
+    }
+
+    .cvm-manager-row {
+        grid-template-columns: 1fr;
+    }
+
+    .cvm-manager-actions {
+        justify-content: flex-start;
+    }
+}
+
+
+/* ==========================================================
+   CV MAKER 0.6.2 — DEFINITIVE EDITOR LAYOUT
+   ========================================================== */
+
+/* The editor window itself never scrolls. Only the left work area and
+   the preview viewport scroll independently. Toolbar + tabs stay fixed. */
+.cvm-editor-window {
+    grid-template-rows: auto auto minmax(0, 1fr) !important;
+}
+
+.cvm-editor-header,
+.cvm-editor-tabs {
+    position: relative !important;
+    top: auto !important;
+    z-index: 20;
+    flex: 0 0 auto;
+}
+
+.cvm-editor-body {
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+.cvm-editor-workspace {
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.32fr) minmax(390px, .88fr);
+    gap: 16px;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.cvm-editor-left-scroll {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 3px;
+    scrollbar-gutter: stable;
+}
+
+.cvm-editor-pages {
+    height: auto !important;
+    min-height: 100%;
+    overflow: visible !important;
+    padding: 0 !important;
+}
+
+.cvm-editor-preview-slot {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Remove the old large CV Content / Design & Templates banners completely. */
+.cvm-editor-overlay #page-content > .page-heading,
+.cvm-editor-overlay #page-design > .page-heading {
+    display: none !important;
+}
+
+/* Once the shared preview has been moved out, the original content grid is
+   a single left-side editor column. */
+.cvm-editor-overlay #page-content .editor-layout {
+    display: block !important;
+}
+
+.cvm-editor-overlay #page-content .editor-column {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Design controls use the left work area; the SAME live preview remains on
+   the right, so spacing changes are visible immediately. */
+.cvm-editor-overlay #page-design .settings-grid {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+    min-width: 0;
+}
+
+.cvm-v06-legacy-region-hidden {
+    display: none !important;
+}
+
+/* One shared preview for both tabs. */
+.cvm-editor-shared-preview {
+    position: relative !important;
+    top: auto !important;
+    align-self: stretch !important;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden !important;
+    border-radius: 16px;
+}
+
+.cvm-editor-shared-preview .preview-header {
+    flex: 0 0 auto;
+}
+
+.cvm-editor-shared-preview .preview-scroll,
+.cvm-editor-shared-preview .cvm-real-preview {
+    flex: 1 1 auto;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: auto !important;
+}
+
+.cvm-editor-shared-preview .preview-scroll {
+    padding: 16px;
+}
+
+.cvm-editor-shared-preview .cvm-real-preview {
+    padding: 16px;
+}
+
+/* The completion pill belongs to the fixed tab row, never in a page banner. */
+.cvm-editor-completeness-mount {
+    margin-left: 8px !important;
+}
+
+/* ----------------------------------------------------------
+   LANGUAGE FLAGS — pure CSS, no emoji/SVG rendering dependency
+   ---------------------------------------------------------- */
+
+.cvm-language-choice {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px !important;
+    color: var(--text, #111827) !important;
+}
+
+.cvm-language-choice strong {
+    display: block;
+    color: inherit !important;
+    opacity: 1 !important;
+}
+
+.cvm-language-flag {
+    display: block !important;
+    width: 58px !important;
+    height: 36px !important;
+    flex: 0 0 auto;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, .14);
+    box-shadow: 0 7px 18px rgba(15, 23, 42, .12);
+}
+
+.cvm-language-flag--fr {
+    background-image: url("../../assets/branding/france_flag.png") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+.cvm-language-flag--uk {
+    background-image: url("../../assets/branding/britain_flag.png") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+
+[data-theme="dark"] .cvm-language-choice {
+    color: #f8fafc !important;
+    background: #171b2a !important;
+    border-color: #30374f !important;
+}
+
+[data-theme="dark"] .cvm-language-choice strong {
+    color: #f8fafc !important;
+}
+
+/* ----------------------------------------------------------
+   ABOUT CVM — compact, no giant logo/image
+   ---------------------------------------------------------- */
+
+#cvmV06AboutModal {
+    width: min(620px, calc(100vw - 36px)) !important;
+    max-height: min(720px, calc(100vh - 40px)) !important;
+}
+
+#cvmV06AboutModal .cvm-modal-content {
+    overflow: auto;
+}
+
+.cvm-about-v062 {
+    display: grid;
+    gap: 16px;
+}
+
+.cvm-about-v062-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px;
+    border: 1px solid rgba(79, 70, 229, .16);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(79, 70, 229, .09), rgba(124, 58, 237, .035));
+}
+
+.cvm-about-v062-monogram {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #4f46e5, #7047eb);
+    box-shadow: 0 10px 24px rgba(79, 70, 229, .20);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.cvm-about-v062-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cvm-about-v062-name strong {
+    font-size: 20px;
+}
+
+.cvm-about-v062-name span {
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #4f46e5;
+    background: rgba(79, 70, 229, .10);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.cvm-about-v062-head p,
+.cvm-about-v062-copy,
+.cvm-about-v062-details p {
+    margin: 5px 0 0;
+    color: var(--muted, #667085);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.cvm-about-v062-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.cvm-about-v062-facts > div {
+    display: grid;
+    gap: 3px;
+    padding: 12px 13px;
+    border: 1px solid var(--border, #dde3ea);
+    border-radius: 13px;
+    background: var(--surface-alt, #f6f8fc);
+}
+
+.cvm-about-v062-facts span {
+    color: var(--muted, #667085);
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+}
+
+.cvm-about-v062-facts strong {
+    font-size: 13px;
+}
+
+.cvm-about-v062-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cvm-about-v062-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid rgba(79, 70, 229, .18);
+    border-radius: 10px;
+    color: #4f46e5;
+    background: rgba(79, 70, 229, .06);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.cvm-about-v062-details {
+    padding-top: 2px;
+}
+
+.cvm-about-v062-details summary {
+    cursor: pointer;
+    color: var(--text, #111827);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+[data-theme="dark"] .cvm-about-v062-facts > div {
+    background: #171b2a;
+    border-color: #30374f;
+}
+
+[data-theme="dark"] .cvm-about-v062-details summary {
+    color: #f8fafc;
+}
+
+/* ----------------------------------------------------------
+   MANAGER PAGES
+   ---------------------------------------------------------- */
+
+#page-exports-manager.active,
+#page-logs-manager.active {
+    display: block !important;
+}
+
+#openExportsBtn.active,
+#openLogsBtn.active {
+    color: var(--text, #111827);
+    background: rgba(79, 70, 229, .10);
+}
+
+[data-theme="dark"] #openExportsBtn.active,
+[data-theme="dark"] #openLogsBtn.active {
+    color: #f8fafc;
+    background: rgba(99, 102, 241, .18);
+}
+
+@media (max-width: 1180px) {
+    .cvm-editor-workspace {
+        grid-template-columns: minmax(0, 1fr) minmax(340px, .78fr);
+        gap: 12px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 920px) {
+    .cvm-editor-workspace {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+
+    .cvm-editor-left-scroll {
+        overflow: visible;
+    }
+
+    .cvm-editor-preview-slot {
+        min-height: 620px;
+    }
+}

@@ -1,0 +1,59 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,top=0.8cm,bottom=0.8cm,left=1.0cm,right=1.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\definecolor{ink}{HTML}{171D29}
+\definecolor{gold}{HTML}{BC965D}
+\definecolor{soft}{HTML}{F8F6F1}
+\hypersetup{colorlinks=true,urlcolor=ink,linkcolor=ink}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\color{ink}
+\newcommand{\sectiontitle}[1]{%
+  \vspace{0.14cm}%
+  {\fontsize{10.4pt}{11pt}\selectfont\bfseries\MakeUppercase{#1}}\par
+  \vspace{-0.04cm}{\color{gold}\rule{\linewidth}{0.8pt}}\par\vspace{0.03cm}%
+}
+\newcommand{\entry}[4]{%
+  {\fontsize{9pt}{9.7pt}\selectfont\bfseries #1\hfill #4}\par
+  {\fontsize{8.2pt}{8.9pt}\selectfont\textbf{#2}\hfill #3}\par\vspace{0.03cm}%
+}
+\newcommand{\cvbullet}[1]{\noindent\hangindent=0.30cm\hangafter=1\makebox[0.23cm][l]{\color{gold}\textbullet}{\fontsize{8.15pt}{9.05pt}\selectfont #1}\par\vspace{0.02cm}}
+\begin{document}
+{\centering
+{\fontsize{25pt}{27pt}\selectfont\bfseries YOUR NAME}\par
+\vspace{0.05cm}
+{\fontsize{10pt}{11pt}\selectfont\bfseries TARGET ROLE}\par
+\vspace{0.06cm}
+{\fontsize{7.7pt}{8.3pt}\selectfont City, Country \textbar{} email@example.com \textbar{} +00 0 00 00 00 \textbar{} \href{https://linkedin.com/in/your-profile}{LinkedIn}}\par
+}\vspace{0.08cm}
+{\color{gold}\rule{\linewidth}{1.1pt}}
+\sectiontitle{Profile}
+{\fontsize{8.2pt}{9.2pt}\selectfont Write a concise professional summary focused on your target role, strongest tools and the value you bring.}\par
+\sectiontitle{Professional Experience}
+\entry{Job Title}{Company Name}{City, Country}{Month YEAR -- Present}
+\cvbullet{Start with a strong action verb and explain what you delivered or improved.}
+\cvbullet{Add a verified metric when you genuinely have one.}
+{\fontsize{7.9pt}{8.7pt}\selectfont\textbf{Tools:} Power BI, SQL, Python, Excel}\par
+\sectiontitle{Education}
+\entry{Degree / Program}{School or University}{City, Country}{YEAR -- YEAR}
+{\fontsize{8pt}{8.7pt}\selectfont Optional specialization, distinction or relevant coursework.}\par
+\sectiontitle{Skills}
+{\fontsize{8.2pt}{9pt}\selectfont\textbf{Data:} SQL, Python, Power BI, Excel \quad \textbf{Workflow:} Git, Jira, SharePoint}\par
+\sectiontitle{Languages}
+{\fontsize{8.2pt}{9pt}\selectfont English C1 \textbar{} French C1 \textbar{} Arabic Native}\par
+\end{document}

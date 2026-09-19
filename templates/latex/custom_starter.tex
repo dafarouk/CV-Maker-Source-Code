@@ -1,0 +1,363 @@
+\documentclass[10pt,a4paper]{article}
+
+% ============================================================
+% PAGE
+% ============================================================
+
+\usepackage[
+  a4paper,
+  top=0.70cm,
+  bottom=0.70cm,
+  left=0.90cm,
+  right=0.90cm
+]{geometry}
+
+% ============================================================
+% LANGUAGE + ATS TEXT EXTRACTION
+% ============================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+
+% ============================================================
+% FONT
+% ============================================================
+
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+% ============================================================
+% COLORS
+% ============================================================
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{accent}{HTML}{8B1540}
+
+% ============================================================
+% LINKS
+% ============================================================
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=ink,
+  linkcolor=ink,
+  pdfauthor={YOUR NAME},
+  pdftitle={CV YOUR NAME}
+}
+
+\urlstyle{same}
+
+% ============================================================
+% GENERAL
+% ============================================================
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\pagestyle{empty}
+\color{ink}
+
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=4000
+\emergencystretch=2em
+
+% ============================================================
+% SECTION TITLE
+% ============================================================
+
+\newcommand{\sectiontitle}[1]{%
+  \vspace{0.10cm}%
+  {\fontsize{10.5pt}{11.1pt}\selectfont
+  \bfseries #1}\par
+  \vspace{-0.06cm}%
+  {\color{accent}\rule{\linewidth}{0.55pt}}\par
+  \vspace{0.02cm}%
+}
+
+% ============================================================
+% JOB HEADER
+% ============================================================
+
+\newcommand{\jobheader}[4]{%
+  {\fontsize{9pt}{9.6pt}\selectfont
+  \bfseries #1}\par
+
+  {\fontsize{8.5pt}{9.1pt}\selectfont
+  \textbf{#2}
+  \hfill
+  \textbf{#4}}\par
+
+  {\fontsize{7.9pt}{8.4pt}\selectfont
+  #3}\par
+
+  \vspace{0.03cm}
+}
+
+% ============================================================
+% BULLET
+% ============================================================
+
+\newcommand{\cvbullet}[1]{%
+  \noindent
+  \hangindent=0.28cm
+  \hangafter=1
+  \makebox[0.22cm][l]{\textbullet}%
+  {\fontsize{8.15pt}{9.05pt}\selectfont #1}\par
+  \vspace{0.02cm}
+}
+
+% ============================================================
+% TOOLS
+% ============================================================
+
+\newcommand{\tools}[1]{%
+  {\fontsize{7.9pt}{8.65pt}\selectfont
+  \textbf{Tools:} #1}\par
+}
+
+% ============================================================
+% EDUCATION
+% ============================================================
+
+\newcommand{\edu}[4]{%
+  {\fontsize{8.35pt}{8.95pt}\selectfont
+  \textbf{#1}
+  \hfill
+  \textbf{#3}}\par
+
+  {\fontsize{7.8pt}{8.4pt}\selectfont
+  #2}\par
+
+  {\fontsize{7.65pt}{8.25pt}\selectfont
+  #4}\par
+
+  \vspace{0.07cm}
+}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+
+\fontsize{8.2pt}{9.1pt}\selectfont
+
+% ============================================================
+% HEADER
+% ============================================================
+
+{\centering
+
+{\fontsize{25pt}{27pt}\selectfont
+\bfseries
+YOUR NAME}\par
+
+\vspace{0.07cm}
+
+{\fontsize{10.2pt}{10.8pt}\selectfont
+\bfseries
+TARGET ROLE
+\textbar{}
+SECOND TARGET ROLE}\par
+
+\vspace{0.06cm}
+
+{\fontsize{7.7pt}{8.2pt}\selectfont
+City, Country
+
+\hspace{0.5em}
+\textbar{}
+\hspace{0.5em}
+
+\href{mailto:email@example.com}{
+email@example.com
+}
+
+\hspace{0.5em}
+\textbar{}
+\hspace{0.5em}
+
++00 0 00 00 00 00
+
+\hspace{0.5em}
+\textbar{}
+\hspace{0.5em}
+
+\href{
+https://linkedin.com/in/your-profile
+}{
+LinkedIn
+}
+
+}\par
+}
+
+\vspace{0.06cm}
+
+{\color{accent}
+\rule{\textwidth}{1pt}}
+
+% ============================================================
+% PROFILE
+% ============================================================
+
+\sectiontitle{PROFILE}
+
+{\fontsize{8.2pt}{9.15pt}\selectfont
+Data / Business Analyst with experience in
+reporting, KPI monitoring, analysis and automation.
+Skilled in Power BI, SQL, Excel and Python.
+Seeking a permanent role from MONTH YEAR.
+}\par
+
+% ============================================================
+% EXPERIENCE
+% ============================================================
+
+\sectiontitle{PROFESSIONAL EXPERIENCE}
+
+\jobheader
+{Job Title}
+{Company Name}
+{City, Country}
+{Month YEAR -- Present}
+
+\cvbullet{
+Start with an action verb.
+Explain what you analysed, built,
+improved or automated and why it mattered.
+}
+
+\cvbullet{
+Add a verified number when you genuinely
+have one: volume, frequency, time saved,
+users, dashboards or KPI.
+}
+
+\cvbullet{
+Keep the bullet concise and focused
+on one clear contribution.
+}
+
+\tools{
+Power BI, SQL, Excel, Python
+}
+
+\vspace{0.10cm}
+
+\jobheader
+{Previous Job Title}
+{Previous Company}
+{City, Country}
+{Month YEAR -- Month YEAR}
+
+\cvbullet{
+Describe a relevant responsibility using
+keywords that match your target roles.
+}
+
+\cvbullet{
+Show the business context or measurable
+result without inventing impact.
+}
+
+\tools{
+Tool 1, Tool 2, Tool 3
+}
+
+% ============================================================
+% EDUCATION
+% ============================================================
+
+\sectiontitle{EDUCATION}
+
+\edu
+{Degree / Master Title}
+{School / University, City, Country}
+{YEAR -- YEAR}
+{Relevant subjects or specialization.}
+
+\edu
+{Previous Degree}
+{School / University, City, Country}
+{YEAR -- YEAR}
+{Relevant subjects.}
+
+% ============================================================
+% SKILLS
+% ============================================================
+
+\sectiontitle{TECHNICAL SKILLS}
+
+{\fontsize{8pt}{8.7pt}\selectfont
+
+\textbf{Analysis \& BI:}
+Power BI, Excel, Tableau, KPI, Reporting.
+\par
+
+\textbf{Data \& SQL:}
+SQL, MySQL, Python,
+Data Quality, Data Modelling.
+\par
+
+\textbf{Automation \& Tools:}
+VBA, Power Automate, Git, Jira.
+\par
+}
+
+% ============================================================
+% LANGUAGES
+% ============================================================
+
+\sectiontitle{LANGUAGES}
+
+{\fontsize{8pt}{8.6pt}\selectfont
+
+\textbf{Language 1:}
+C1
+
+\hspace{1.5em}
+\textbar{}
+\hspace{1.5em}
+
+\textbf{Language 2:}
+B2
+}
+
+% ============================================================
+% CERTIFICATIONS
+% ============================================================
+
+\sectiontitle{CERTIFICATIONS}
+
+{\fontsize{7.9pt}{8.5pt}\selectfont
+
+\textbf{Certification Name}
+(YEAR)
+
+\hspace{1em}
+\textbar{}
+\hspace{1em}
+
+\textbf{Certification Name}
+(YEAR)
+}
+
+\end{document}

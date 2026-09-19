@@ -1,0 +1,98 @@
+/* ==========================================================
+   CVM — structured entry controls
+   Month/year dates, skill chips and language level selectors
+   ========================================================== */
+
+.cvm-month-field .cvm-field-hint,
+.cvm-skill-field .cvm-field-hint,
+.cvm-language-field .cvm-field-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--muted, #667085);
+}
+
+.cvm-month-field input[type="month"] {
+    cursor: pointer;
+}
+
+.cvm-month-field input[type="month"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.68;
+}
+
+.cvm-skill-editor {
+    display: grid;
+    gap: 10px;
+}
+
+.cvm-skill-input-wrap {
+    position: relative;
+}
+
+.cvm-skill-input {
+    width: 100%;
+}
+
+.cvm-skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 4px;
+}
+
+.cvm-skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 30px;
+    padding: 5px 7px 5px 11px;
+    border: 1px solid rgba(79, 70, 229, 0.18);
+    border-radius: 999px;
+    background: linear-gradient(
+        135deg,
+        rgba(79, 70, 229, 0.10),
+        rgba(124, 58, 237, 0.06)
+    );
+    color: var(--text, #111827);
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.06);
+}
+
+.cvm-skill-chip button {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(79, 70, 229, 0.11);
+    color: inherit;
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 120ms ease, background 120ms ease;
+}
+
+.cvm-skill-chip button:hover {
+    transform: scale(1.08);
+    background: rgba(200, 62, 77, 0.12);
+}
+
+.cvm-language-level-select {
+    font-weight: 750;
+    letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .cvm-skill-chip {
+    border-color: rgba(129, 140, 248, 0.22);
+    background: linear-gradient(
+        135deg,
+        rgba(99, 102, 241, 0.17),
+        rgba(124, 58, 237, 0.10)
+    );
+}

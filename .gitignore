@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Editors
+.vscode/
+
+# Runtime data
+logs/*
+exports/*
+data/autosave/*
+data/projects/*.cvm
+data/projects/*.cvproject
+data/settings/*.json
+data/settings/updates/
+
+# Keep empty runtime folders in source control
+!logs/.gitkeep
+!exports/.gitkeep
+!data/autosave/.gitkeep
+!data/projects/.gitkeep
+!data/settings/.gitkeep
+
+# Generated documentation
+docs/*.pdf
+!docs/.gitkeep
+
+# Bundled release runtime is downloaded by build/prepare_tectonic.ps1
+runtime/tectonic/tectonic.exe
+runtime/tectonic/bundle/*.tar
+runtime/tectonic/bundle/*.tar.index.gz
+build/.tectonic-download/
+!runtime/tectonic/.gitkeep
+!runtime/tectonic/bundle/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build / release output
+dist/
+build/installer/
+release/

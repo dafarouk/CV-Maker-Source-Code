@@ -1,0 +1,12 @@
+CV Maker - Third-Party Notices
+==============================
+
+CV Maker includes or depends on third-party open-source software.
+
+Tectonic
+--------
+Tectonic is a modern TeX/LaTeX engine distributed under the MIT License.
+Project: https://github.com/tectonic-typesetting/tectonic
+
+Other Python dependencies used by CV Maker are listed in requirements.txt.
+Their respective licenses remain the property of their authors and projects.

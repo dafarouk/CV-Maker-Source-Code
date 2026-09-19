@@ -1,0 +1,55 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,top=0.8cm,bottom=0.8cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\definecolor{ink}{HTML}{171D29}
+\definecolor{gold}{HTML}{BC965D}
+\definecolor{cream}{HTML}{F8F6F1}
+\hypersetup{colorlinks=true,urlcolor=ink,linkcolor=ink}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+\newcommand{\sectiontitle}[1]{\vspace{0.12cm}{\fontsize{9.6pt}{10.3pt}\selectfont\bfseries\color{ink}\MakeUppercase{#1}}\par{\color{gold}\rule{\linewidth}{0.7pt}}\par\vspace{0.04cm}}
+\newcommand{\cvbullet}[1]{\noindent\hangindent=0.28cm\hangafter=1\makebox[0.21cm][l]{\color{gold}\textbullet}{\fontsize{8pt}{8.9pt}\selectfont #1}\par\vspace{0.02cm}}
+\begin{document}
+{\centering{\fontsize{24pt}{26pt}\selectfont\bfseries\color{ink}YOUR NAME}\par{\fontsize{10pt}{11pt}\selectfont\bfseries\color{gold}TARGET ROLE}\par\vspace{0.05cm}{\fontsize{7.6pt}{8.2pt}\selectfont City, Country \textbar{} email@example.com \textbar{} +00 0 00 00 00}\par}\vspace{0.16cm}
+\begin{minipage}[t]{0.66\textwidth}
+\vspace{0pt}
+\sectiontitle{Experience}
+{\fontsize{8.9pt}{9.6pt}\selectfont\bfseries Job Title\hfill Month YEAR -- Present}\par
+{\fontsize{8.1pt}{8.8pt}\selectfont\textbf{Company Name} -- City, Country}\par
+\cvbullet{Explain your most relevant contribution and why it mattered.}
+\cvbullet{Add one concise verified metric if available.}
+\sectiontitle{Projects}
+{\fontsize{8.8pt}{9.5pt}\selectfont\bfseries Project Name}\par
+\cvbullet{Describe the problem, your approach and the result.}
+\sectiontitle{Education}
+{\fontsize{8.8pt}{9.5pt}\selectfont\bfseries Degree / Program\hfill YEAR}\par
+{\fontsize{8.1pt}{8.8pt}\selectfont University, City}\par
+\end{minipage}\hfill
+\begin{minipage}[t]{0.29\textwidth}
+\vspace{0pt}
+\colorbox{cream}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{
+\sectiontitle{Profile}
+{\fontsize{7.9pt}{8.8pt}\selectfont Short professional profile tailored to the target role.}\par
+\sectiontitle{Skills}
+{\fontsize{7.9pt}{8.8pt}\selectfont\textbf{Data}\par SQL\par Python\par Power BI\par Excel\par\vspace{0.07cm}\textbf{Workflow}\par Git\par Jira\par SharePoint}\par
+\sectiontitle{Languages}
+{\fontsize{7.9pt}{8.8pt}\selectfont English C1\par French C1\par Arabic Native}\par
+\sectiontitle{Links}
+{\fontsize{7.7pt}{8.5pt}\selectfont\href{https://linkedin.com/in/your-profile}{LinkedIn}\par\href{https://your-portfolio.com}{Portfolio}}\par
+}}
+\end{minipage}
+\end{document}

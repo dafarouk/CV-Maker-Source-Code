@@ -1,0 +1,250 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[
+  a4paper,
+  top=[[ spacing.page_top_mm ]]mm,
+  bottom=[[ spacing.page_bottom_mm ]]mm,
+  left=[[ spacing.page_left_mm ]]mm,
+  right=[[ spacing.page_right_mm ]]mm
+]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{namecolor}{HTML}{[[ color_name_hex ]]}
+\definecolor{sectioncolor}{HTML}{[[ color_section_hex ]]}
+\definecolor{rolecolor}{HTML}{[[ color_role_hex ]]}
+\definecolor{subtitlecolor}{HTML}{[[ color_subtitle_hex ]]}
+\definecolor{linecolor}{HTML}{[[ color_line_hex ]]}
+\definecolor{linkcolor}{HTML}{[[ color_link_hex ]]}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkcolor,
+  linkcolor=linkcolor,
+  pdfauthor={[[ personal.full_name|tex ]]},
+  pdftitle={CV [[ personal.full_name|tex ]]}
+}
+\urlstyle{same}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\color{ink}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=4000
+\emergencystretch=2em
+
+\newcommand{\sectiongap}{[[ spacing.section_gap_mm ]]mm}
+\newcommand{\titlebeforegap}{[[ spacing.title_before_mm ]]mm}
+\newcommand{\titleaftergap}{[[ spacing.title_after_mm ]]mm}
+\newcommand{\separatorgap}{[[ spacing.separator_gap_mm ]]mm}
+\newcommand{\entrygap}{[[ spacing.entry_gap_mm ]]mm}
+\newcommand{\bulletgap}{[[ spacing.bullet_gap_mm ]]mm}
+\newcommand{\bodyfontsize}{[[ spacing.body_font_pt ]]pt}
+\newcommand{\bodybaseline}{[[ spacing.body_baseline_pt ]]pt}
+
+\newcommand{\sectiontitle}[1]{%
+  \vspace{\sectiongap}%
+  \vspace{\titlebeforegap}%
+  {\color{sectioncolor}\fontsize{10.5pt}{11.1pt}\selectfont\bfseries #1}\par
+  \vspace{\titleaftergap}%
+  {\color{linecolor}\rule{\linewidth}{0.55pt}}\par
+  \vspace{\separatorgap}%
+}
+
+\newcommand{\jobheader}[5]{%
+  {\color{rolecolor}\fontsize{9pt}{#5pt}\selectfont\bfseries #1}\par
+  {\color{subtitlecolor}\fontsize{8.5pt}{#5pt}\selectfont\textbf{#2}\hfill\textbf{#4}}\par
+  {\fontsize{7.9pt}{#5pt}\selectfont #3}\par
+  \vspace{0.03cm}
+}
+
+\newcommand{\cvbullet}[2]{%
+  \noindent
+  \hangindent=0.28cm
+  \hangafter=1
+  \makebox[0.22cm][l]{\textbullet}%
+  {\fontsize{8.15pt}{#2pt}\selectfont #1}\par
+  \vspace{\bulletgap}
+}
+
+\newcommand{\tools}[2]{%
+  {\fontsize{7.9pt}{#2pt}\selectfont\textbf{[[ labels.tools|tex ]]:} #1}\par
+}
+
+\newcommand{\edu}[5]{%
+  {\color{rolecolor}\fontsize{8.35pt}{#5pt}\selectfont\textbf{#1}\hfill\textbf{#3}}\par
+  {\color{subtitlecolor}\fontsize{7.8pt}{#5pt}\selectfont #2}\par
+  {\fontsize{7.65pt}{#5pt}\selectfont #4}\par
+  \vspace{0.07cm}
+}
+
+\begin{document}
+\fontsize{\bodyfontsize}{\bodybaseline}\selectfont
+
+[% if photo_enabled %]
+\noindent
+\begin{minipage}[c]{2.45cm}
+  \centering
+  \includegraphics[width=2.20cm,height=2.65cm,keepaspectratio]{\detokenize{[[ photo_path|path ]]}}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{\dimexpr\textwidth-2.75cm\relax}
+  \centering
+  {\color{namecolor}\fontsize{25pt}{27pt}\selectfont\bfseries [[ personal.full_name|tex ]]}\par
+
+  [% if personal.target_role or personal.secondary_target_role %]
+  \vspace{0.07cm}
+  {\color{rolecolor}\fontsize{10.2pt}{10.8pt}\selectfont\bfseries
+  [[ personal.target_role|tex ]]
+  [% if personal.target_role and personal.secondary_target_role %]\textbar{}[% endif %]
+  [[ personal.secondary_target_role|tex ]]\par}
+  [% endif %]
+
+  [% if header_contacts %]
+  \vspace{0.06cm}
+  {\fontsize{7.7pt}{8.2pt}\selectfont
+  [% for item in header_contacts %]
+  [% if not loop.first %]\hspace{0.5em}\textbar{}\hspace{0.5em}[% endif %]
+  [% if item.url %]\href{\detokenize{[[ item.url|url ]]}}{[[ item.text|tex ]]}[% else %][[ item.text|tex ]][% endif %]
+  [% endfor %]
+  }\par
+  [% endif %]
+\end{minipage}
+[% else %]
+{\centering
+{\color{namecolor}\fontsize{25pt}{27pt}\selectfont\bfseries [[ personal.full_name|tex ]]}\par
+
+[% if personal.target_role or personal.secondary_target_role %]
+\vspace{0.07cm}
+{\color{rolecolor}\fontsize{10.2pt}{10.8pt}\selectfont\bfseries
+[[ personal.target_role|tex ]]
+[% if personal.target_role and personal.secondary_target_role %]\textbar{}[% endif %]
+[[ personal.secondary_target_role|tex ]]\par}
+[% endif %]
+
+[% if header_contacts %]
+\vspace{0.06cm}
+{\fontsize{7.7pt}{8.2pt}\selectfont
+[% for item in header_contacts %]
+[% if not loop.first %]\hspace{0.5em}\textbar{}\hspace{0.5em}[% endif %]
+[% if item.url %]\href{\detokenize{[[ item.url|url ]]}}{[[ item.text|tex ]]}[% else %][[ item.text|tex ]][% endif %]
+[% endfor %]
+}\par
+[% endif %]
+}
+[% endif %]
+
+\vspace{0.06cm}
+{\color{linecolor}\rule{\textwidth}{1pt}}
+
+[% for section in design.section_order %]
+[% if section_visibility.get(section, True) %]
+
+[% if section == "profile" and profile %]
+\vspace{[[ spacing.profile_before_mm ]]mm}
+\sectiontitle{[[ labels.profile|tex ]]}
+\parbox{\linewidth}{\raggedright\fontsize{8.2pt}{[[ spacing.profile_baseline_pt ]]pt}\selectfont [[ profile|tex ]]}\par
+\vspace{[[ spacing.profile_after_mm ]]mm}
+
+[% elif section == "experiences" and experiences %]
+\vspace{[[ spacing.experiences_before_mm ]]mm}
+\sectiontitle{[[ labels.experience|tex ]]}
+[% for item in experiences %]
+\jobheader{[[ item.job_title|tex ]]}{[[ item.company|tex ]]}{[[ item.location|tex ]]}{[[ item.date_range|tex ]]}{[[ spacing.experiences_baseline_pt ]]}
+[% if item.description_mode == "paragraph" and item.paragraph %]
+{\fontsize{8.15pt}{[[ spacing.experiences_baseline_pt ]]pt}\selectfont [[ item.paragraph|tex ]]}\par
+\vspace{0.03cm}
+[% else %]
+[% for bullet in item.bullets %]\cvbullet{[[ bullet|tex ]]}{[[ spacing.experiences_baseline_pt ]]}[% endfor %]
+[% endif %]
+[% if item.tools %]\tools{[[ item.tools|join(", ")|tex ]]}{[[ spacing.experiences_baseline_pt ]]}[% endif %]
+[% if not loop.last %]\vspace{\entrygap}[% endif %]
+[% endfor %]
+\vspace{[[ spacing.experiences_after_mm ]]mm}
+
+[% elif section == "education" and education %]
+\vspace{[[ spacing.education_before_mm ]]mm}
+\sectiontitle{[[ labels.education|tex ]]}
+[% for item in education %]
+\edu{[[ item.degree|tex ]]}{[[ item.school|tex ]][% if item.location %], [[ item.location|tex ]][% endif %]}{[[ item.date_range|tex ]]}{[[ item.details|tex ]]}{[[ spacing.education_baseline_pt ]]}
+[% endfor %]
+\vspace{[[ spacing.education_after_mm ]]mm}
+
+[% elif section == "projects" and projects %]
+\vspace{[[ spacing.projects_before_mm ]]mm}
+\sectiontitle{[[ labels.projects|tex ]]}
+[% for item in projects %]
+{\color{rolecolor}\fontsize{8.5pt}{[[ spacing.projects_baseline_pt ]]pt}\selectfont\textbf{[[ item.name|tex ]]}[% if item.date_range %]\hfill\textbf{[[ item.date_range|tex ]]}[% endif %]}\par
+[% if item.subtitle %]{\color{subtitlecolor}\fontsize{7.8pt}{[[ spacing.projects_baseline_pt ]]pt}\selectfont [[ item.subtitle|tex ]]}\par[% endif %]
+[% for bullet in item.bullets %]\cvbullet{[[ bullet|tex ]]}{[[ spacing.projects_baseline_pt ]]}[% endfor %]
+[% if item.tools %]\tools{[[ item.tools|join(", ")|tex ]]}{[[ spacing.projects_baseline_pt ]]}[% endif %]
+[% if item.link %]{\fontsize{7.7pt}{[[ spacing.projects_baseline_pt ]]pt}\selectfont\href{\detokenize{[[ item.link|url ]]}}{[[ labels.project_link|tex ]]}}\par[% endif %]
+[% if not loop.last %]\vspace{\entrygap}[% endif %]
+[% endfor %]
+\vspace{[[ spacing.projects_after_mm ]]mm}
+
+[% elif section == "volunteering" and volunteering %]
+\vspace{[[ spacing.volunteering_before_mm ]]mm}
+\sectiontitle{[[ labels.volunteering|tex ]]}
+[% for item in volunteering %]
+\jobheader{[[ item.role|tex ]]}{[[ item.organization|tex ]]}{[[ item.location|tex ]]}{[[ item.date_range|tex ]]}{[[ spacing.volunteering_baseline_pt ]]}
+[% for bullet in item.bullets %]\cvbullet{[[ bullet|tex ]]}{[[ spacing.volunteering_baseline_pt ]]}[% endfor %]
+[% if not loop.last %]\vspace{\entrygap}[% endif %]
+[% endfor %]
+\vspace{[[ spacing.volunteering_after_mm ]]mm}
+
+[% elif section == "skills" and skills %]
+\vspace{[[ spacing.skills_before_mm ]]mm}
+\sectiontitle{[[ labels.skills|tex ]]}
+{\fontsize{8pt}{[[ spacing.skills_baseline_pt ]]pt}\selectfont
+[% for group in skills %]
+[% if group.name or group.items %]\textbf{[[ group.name|tex ]]:} [[ group["items"]|join(", ")|tex ]].\par[% endif %]
+[% endfor %]
+}
+\vspace{[[ spacing.skills_after_mm ]]mm}
+
+[% elif section == "languages" and languages %]
+\vspace{[[ spacing.languages_before_mm ]]mm}
+\sectiontitle{[[ labels.languages|tex ]]}
+{\fontsize{8pt}{[[ spacing.languages_baseline_pt ]]pt}\selectfont
+[% for item in languages %]
+[% if not loop.first %]\hspace{1.5em}\textbar{}\hspace{1.5em}[% endif %]
+\textbf{[[ item.name|tex ]]:} [[ item.level|tex ]]
+[% endfor %]
+}
+\vspace{[[ spacing.languages_after_mm ]]mm}
+
+[% elif section == "certifications" and certifications %]
+\vspace{[[ spacing.certifications_before_mm ]]mm}
+\sectiontitle{[[ labels.certifications|tex ]]}
+{\fontsize{7.9pt}{[[ spacing.certifications_baseline_pt ]]pt}\selectfont
+[% for item in certifications %]
+[% if not loop.first %]\hspace{1em}\textbar{}\hspace{1em}[% endif %]
+\textbf{[[ item.name|tex ]]}[% if item.issuer %] -- [[ item.issuer|tex ]][% endif %][% if item.year %] ([[ item.year|tex ]])[% endif %]
+[% endfor %]
+}
+\vspace{[[ spacing.certifications_after_mm ]]mm}
+[% endif %]
+[% endif %]
+[% endfor %]
+
+\end{document}

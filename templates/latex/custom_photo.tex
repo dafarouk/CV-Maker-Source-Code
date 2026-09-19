@@ -1,0 +1,53 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,top=0.9cm,bottom=0.9cm,left=1.0cm,right=1.0cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{microtype}
+\definecolor{ink}{HTML}{171D29}
+\definecolor{gold}{HTML}{BC965D}
+\definecolor{cream}{HTML}{FFFDF9}
+\hypersetup{colorlinks=true,urlcolor=ink,linkcolor=ink}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+\newcommand{\sectiontitle}[1]{\vspace{0.12cm}{\fontsize{10pt}{10.8pt}\selectfont\bfseries\color{ink}#1}\par{\color{gold}\rule{\linewidth}{0.7pt}}\par\vspace{0.03cm}}
+\newcommand{\photo}{%
+  \IfFileExists{profile_photo.jpg}{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{profile_photo.jpg}}{%
+  \fcolorbox{gold}{cream}{\parbox[c][2.6cm][c]{2.6cm}{\centering\color{ink}\bfseries YOUR\\PHOTO}}}%
+}
+\newcommand{\cvbullet}[1]{\noindent\hangindent=0.28cm\hangafter=1\makebox[0.21cm][l]{\color{gold}\textbullet}{\fontsize{8.1pt}{9pt}\selectfont #1}\par\vspace{0.02cm}}
+\begin{document}
+% Put a file named profile_photo.jpg next to main.tex, or replace the image path above.
+\begin{minipage}[c]{0.72\textwidth}
+{\fontsize{25pt}{27pt}\selectfont\bfseries\color{ink}YOUR NAME}\par
+\vspace{0.04cm}{\fontsize{10pt}{11pt}\selectfont\bfseries\color{gold}TARGET ROLE}\par
+\vspace{0.06cm}{\fontsize{7.7pt}{8.3pt}\selectfont City, Country \textbar{} email@example.com \textbar{} +00 0 00 00 00}\par
+\vspace{0.04cm}{\fontsize{7.7pt}{8.3pt}\selectfont LinkedIn \textbar{} Portfolio}\par
+\end{minipage}\hfill
+\begin{minipage}[c]{0.23\textwidth}\raggedleft\photo\end{minipage}
+\vspace{0.08cm}{\color{gold}\rule{\linewidth}{1pt}}
+\sectiontitle{Profile}
+{\fontsize{8.2pt}{9.2pt}\selectfont A concise profile introducing your expertise and target role.}\par
+\sectiontitle{Experience}
+{\fontsize{8.9pt}{9.6pt}\selectfont\bfseries Job Title\hfill Month YEAR -- Present}\par
+{\fontsize{8.1pt}{8.8pt}\selectfont\textbf{Company Name} -- City, Country}\par
+\cvbullet{Describe an important responsibility or achievement.}
+\cvbullet{Quantify impact when the number is verified.}
+\sectiontitle{Education}
+{\fontsize{8.8pt}{9.5pt}\selectfont\bfseries Degree / Program\hfill YEAR -- YEAR}\par
+{\fontsize{8.1pt}{8.8pt}\selectfont University, City}\par
+\sectiontitle{Skills}
+{\fontsize{8.2pt}{9pt}\selectfont SQL \textbar{} Python \textbar{} Power BI \textbar{} Excel \textbar{} Tableau}\par
+\end{document}

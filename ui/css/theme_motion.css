@@ -1,0 +1,191 @@
+/* ==========================================================
+   CVM - NO MOTION / NO HOME BACKGROUND PATTERN
+   Keeps only global dark-mode readability fixes.
+   ========================================================== */
+
+
+/* ----------------------------------------------------------
+   HOME: remove every motion / grid / watermark layer
+   ---------------------------------------------------------- */
+
+#page-home,
+#page-home.page,
+#page-home.active {
+    background-image: none !important;
+    animation: none !important;
+}
+
+#page-home::before,
+#page-home::after,
+#page-home .hero-card::before,
+#page-home .hero-card::after,
+#page-home .section-block::before,
+#page-home .section-block::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    background-image: none !important;
+    animation: none !important;
+}
+
+.cvm-home-motion-layer,
+.cvm-home-floating-logo,
+.cvm-home-static-layer,
+.cvm-home-grid,
+.cvm-home-pattern,
+.cvm-home-watermark,
+#cvmHomeMotionToggle {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+
+/* The hero is a normal foreground card again. */
+#page-home .hero-card {
+    position: relative !important;
+    isolation: isolate !important;
+    background-image: none !important;
+    animation: none !important;
+    overflow: hidden;
+}
+
+/* Remove any inherited decorative background from Home content cards. */
+#page-home .section-block,
+#page-home .feature-card {
+    background-image: none !important;
+    animation: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   DARK MODE - TOP LEFT LOGO TILE
+   ---------------------------------------------------------- */
+
+[data-theme="dark"] .brand-logo-wrap {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(109, 94, 252, 0.22),
+            rgba(79, 70, 229, 0.10)
+        ) !important;
+
+    border-color:
+        rgba(139, 126, 255, 0.38) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 10px 30px rgba(0, 0, 0, 0.16) !important;
+}
+
+[data-theme="dark"] .brand-logo-wrap img,
+[data-theme="dark"] .brand-logo {
+    filter:
+        brightness(1.22)
+        saturate(1.08) !important;
+}
+
+
+/* ----------------------------------------------------------
+   DARK MODE - ALL NATIVE FORM CONTROLS
+   ---------------------------------------------------------- */
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    color: #F7F8FC !important;
+    background-color: #171B2A !important;
+    border-color: #343B55 !important;
+    color-scheme: dark;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: #8F98AF !important;
+    opacity: 1 !important;
+}
+
+[data-theme="dark"] select option,
+[data-theme="dark"] select optgroup {
+    color: #F7F8FC !important;
+    background: #171B2A !important;
+}
+
+[data-theme="dark"] select option:checked,
+[data-theme="dark"] select option:hover {
+    color: #FFFFFF !important;
+    background: #4F46E5 !important;
+}
+
+[data-theme="dark"] input[type="month"] {
+    color-scheme: dark;
+}
+
+[data-theme="dark"] input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.5);
+    opacity: 0.82;
+}
+
+
+/* ----------------------------------------------------------
+   DARK MODE - SKILL CHIPS
+   ---------------------------------------------------------- */
+
+[data-theme="dark"] .cvm-skill-editor {
+    background: #171B2A !important;
+    border-color: #343B55 !important;
+}
+
+[data-theme="dark"] .cvm-skill-chip {
+    color: #EEF0FF !important;
+    background:
+        rgba(79, 70, 229, 0.20) !important;
+    border-color:
+        rgba(124, 110, 255, 0.42) !important;
+}
+
+[data-theme="dark"] .cvm-skill-chip > span {
+    color: #EEF0FF !important;
+}
+
+[data-theme="dark"] .cvm-skill-chip button {
+    color: #D6D3FF !important;
+    background:
+        rgba(79, 70, 229, 0.24) !important;
+}
+
+[data-theme="dark"] .cvm-skill-chip button:hover {
+    color: #FFFFFF !important;
+    background:
+        rgba(200, 62, 77, 0.48) !important;
+}
+
+[data-theme="dark"] .cvm-skill-input {
+    color: #F7F8FC !important;
+    background: #171B2A !important;
+}
+
+[data-theme="dark"] .cvm-skill-input::placeholder {
+    color: #8F98AF !important;
+}
+
+
+/* ----------------------------------------------------------
+   REDUCED MOTION SAFETY
+   No home animation should run under any circumstances.
+   ---------------------------------------------------------- */
+
+#page-home *,
+#page-home *::before,
+#page-home *::after {
+    scroll-behavior: auto;
+}
+
+.cvm-home-motion-layer *,
+.cvm-home-floating-logo {
+    animation: none !important;
+    transition: none !important;
+}

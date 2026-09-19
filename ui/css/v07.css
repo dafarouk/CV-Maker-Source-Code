@@ -1,0 +1,1161 @@
+/* ==========================================================
+   CVM 0.7 - HOME, MANUAL PDF PREVIEW, LATEX STUDIO
+========================================================== */
+
+/* ==========================================================
+   HOME
+========================================================== */
+
+.cvm-v07-home-page {
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+.cvm-v07-home-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(380px, .96fr);
+    gap: clamp(28px, 4vw, 72px);
+    align-items: center;
+    min-height: 610px;
+    padding: clamp(42px, 5vw, 76px);
+    border: 1px solid rgba(79, 70, 229, .13);
+    border-radius: 30px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 13% 18%, rgba(79, 70, 229, .10), transparent 26%),
+        radial-gradient(circle at 88% 12%, rgba(16, 185, 129, .09), transparent 24%),
+        linear-gradient(135deg, rgba(255,255,255,.97), rgba(247,249,255,.94));
+    box-shadow: 0 28px 80px rgba(20, 29, 61, .10);
+}
+
+.cvm-v07-home-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .35;
+    background-image:
+        linear-gradient(rgba(79,70,229,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,70,229,.06) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to right, transparent, #000 58%, #000 100%);
+}
+
+.cvm-v07-home-copy,
+.cvm-v07-home-visual {
+    position: relative;
+    z-index: 2;
+}
+
+.cvm-v07-home-copy {
+    max-width: 760px;
+}
+
+.cvm-v07-home-copy > .eyebrow {
+    margin-bottom: 18px;
+}
+
+.cvm-v07-home-copy h1 {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(46px, 5.25vw, 78px);
+    line-height: .98;
+    letter-spacing: -.055em;
+    font-weight: 820;
+}
+
+.cvm-v07-gradient-text {
+    width: fit-content;
+    padding-right: .08em;
+    background: linear-gradient(92deg, #4f46e5 0%, #6d4bf4 52%, #10b981 115%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.cvm-v07-home-copy > p {
+    max-width: 700px;
+    margin: 24px 0 28px;
+    color: #667085;
+    font-size: 17px;
+    line-height: 1.72;
+}
+
+.cvm-v07-mode-grid {
+    display: grid;
+    gap: 13px;
+}
+
+.cvm-v07-mode-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    min-height: 108px;
+    padding: 18px 20px;
+    border: 1px solid rgba(148, 163, 184, .24);
+    border-radius: 20px;
+    text-align: left;
+    color: #111827;
+    background: rgba(255,255,255,.82);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .07);
+    transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.cvm-v07-mode-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(79, 70, 229, .35);
+    box-shadow: 0 18px 42px rgba(79, 70, 229, .13);
+}
+
+.cvm-v07-mode-card--easy {
+    background:
+        linear-gradient(90deg, rgba(79,70,229,.08), transparent 40%),
+        rgba(255,255,255,.88);
+}
+
+.cvm-v07-mode-card--latex {
+    background:
+        linear-gradient(90deg, rgba(16,185,129,.08), transparent 40%),
+        rgba(255,255,255,.88);
+}
+
+.cvm-v07-mode-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -.03em;
+    color: #fff;
+    background: linear-gradient(135deg, #4f46e5, #6d4bf4);
+    box-shadow: 0 10px 24px rgba(79,70,229,.23);
+}
+
+.cvm-v07-mode-card--latex .cvm-v07-mode-icon {
+    background: linear-gradient(135deg, #0f766e, #10b981);
+    box-shadow: 0 10px 24px rgba(16,185,129,.20);
+}
+
+.cvm-v07-mode-copy {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+}
+
+.cvm-v07-mode-kicker {
+    color: #4f46e5;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .15em;
+}
+
+.cvm-v07-mode-card--latex .cvm-v07-mode-kicker {
+    color: #0f8f68;
+}
+
+.cvm-v07-mode-copy strong {
+    font-size: 20px;
+    letter-spacing: -.025em;
+}
+
+.cvm-v07-mode-copy small {
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.cvm-v07-mode-arrow {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: #4f46e5;
+    background: rgba(79,70,229,.09);
+    font-size: 18px;
+    transition: transform 160ms ease;
+}
+
+.cvm-v07-mode-card:hover .cvm-v07-mode-arrow {
+    transform: translateX(3px);
+}
+
+.cvm-v07-home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.cvm-v07-home-visual {
+    min-height: 500px;
+    display: grid;
+    place-items: center;
+}
+
+.cvm-v07-visual-grid {
+    position: absolute;
+    inset: 2% 0 1% 0;
+    border-radius: 28px;
+    opacity: .75;
+    background:
+        radial-gradient(circle at 1px 1px, rgba(79,70,229,.20) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(circle at center, #000 45%, transparent 82%);
+}
+
+.cvm-v07-graph-card {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 540px);
+    padding: 22px 22px 18px;
+    border: 1px solid rgba(79,70,229,.18);
+    border-radius: 26px;
+    background: rgba(255,255,255,.91);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 32px 70px rgba(49, 46, 129, .18);
+    transform: rotate(-1.2deg);
+}
+
+.cvm-v07-graph-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #667085;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .14em;
+}
+
+.cvm-v07-graph-top strong {
+    padding: 6px 9px;
+    border-radius: 999px;
+    color: #0b7a4b;
+    background: rgba(16,185,129,.10);
+    font-size: 10px;
+}
+
+.cvm-v07-graph {
+    width: 100%;
+    height: auto;
+    margin: 8px 0 2px;
+    overflow: visible;
+}
+
+.cvm-v07-graph circle {
+    fill: #fff;
+    stroke: #4f46e5;
+    stroke-width: 5;
+}
+
+.cvm-v07-graph circle:last-child {
+    stroke: #10b981;
+}
+
+.cvm-v07-graph-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.cvm-v07-graph-metrics > span {
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border: 1px solid #edf0f6;
+    border-radius: 14px;
+    background: #fbfcff;
+}
+
+.cvm-v07-graph-metrics small {
+    color: #98a2b3;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.cvm-v07-graph-metrics strong {
+    color: #111827;
+    font-size: 13px;
+}
+
+.cvm-v07-code-float,
+.cvm-v07-status-float {
+    position: absolute;
+    z-index: 3;
+    border: 1px solid rgba(148,163,184,.22);
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 42px rgba(15,23,42,.13);
+}
+
+.cvm-v07-code-float {
+    right: -10px;
+    top: 54px;
+    display: grid;
+    gap: 6px;
+    min-width: 198px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    transform: rotate(2deg);
+    color: #4338ca;
+    font: 600 11px/1.35 Consolas, "Cascadia Code", monospace;
+}
+
+.cvm-v07-code-float span:nth-child(2) {
+    color: #0f766e;
+}
+
+.cvm-v07-code-float span:nth-child(3) {
+    color: #667085;
+}
+
+.cvm-v07-status-float {
+    left: 2px;
+    bottom: 54px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 13px 16px;
+    border-radius: 18px;
+}
+
+.cvm-v07-status-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 5px rgba(16,185,129,.11);
+}
+
+.cvm-v07-status-float div {
+    display: grid;
+    gap: 2px;
+}
+
+.cvm-v07-status-float strong {
+    color: #111827;
+    font-size: 13px;
+}
+
+.cvm-v07-status-float small {
+    color: #667085;
+    font-size: 10px;
+}
+
+.cvm-v07-home-strip {
+    margin-top: 22px;
+}
+
+.cvm-v07-feature-grid .feature-card {
+    min-height: 126px;
+}
+
+/* ==========================================================
+   STRUCTURED EDITOR - MANUAL EXACT PDF PREVIEW
+========================================================== */
+
+.cvm-v07-preview-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: auto;
+}
+
+.cvm-v07-preview-button {
+    min-height: 30px;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text-main);
+    background: var(--surface);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.cvm-v07-preview-button:hover {
+    border-color: var(--indigo);
+    color: var(--indigo);
+}
+
+.cvm-v07-preview-button.primary {
+    border-color: transparent;
+    color: #fff;
+    background: var(--indigo);
+}
+
+.cvm-v07-pdf-shell {
+    position: relative;
+    min-height: 100%;
+}
+
+.cvm-v07-pdf-empty {
+    display: grid;
+    place-items: center;
+    min-height: 430px;
+    padding: 28px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.cvm-v07-pdf-empty > div {
+    max-width: 360px;
+}
+
+.cvm-v07-pdf-empty strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    font-size: 18px;
+}
+
+.cvm-v07-pdf-stale {
+    position: sticky;
+    top: 10px;
+    z-index: 4;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: calc(100% - 20px);
+    margin: 10px auto -58px;
+    padding: 10px 12px;
+    border: 1px solid rgba(245,158,11,.28);
+    border-radius: 12px;
+    color: #92400e;
+    background: rgba(255,247,237,.97);
+    box-shadow: 0 10px 30px rgba(146,64,14,.10);
+    backdrop-filter: blur(10px);
+    font-size: 11px;
+}
+
+.cvm-v07-pdf-stale.visible {
+    display: flex;
+}
+
+.cvm-v07-pdf-stale button {
+    flex: 0 0 auto;
+    padding: 7px 10px;
+    border-radius: 8px;
+    color: #fff;
+    background: #d97706;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.cvm-v07-pdf-progress {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    place-items: center;
+    background: rgba(246,248,252,.78);
+    backdrop-filter: blur(4px);
+}
+
+.cvm-v07-pdf-progress.visible {
+    display: grid;
+}
+
+.cvm-v07-pdf-progress span {
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ==========================================================
+   LATEX STUDIO
+========================================================== */
+
+.cvm-latex-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    background: rgba(11, 16, 31, .26);
+    backdrop-filter: blur(12px) saturate(.92);
+}
+
+.cvm-latex-overlay.open {
+    display: block;
+}
+
+.cvm-latex-shell {
+    position: absolute;
+    inset: 18px;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid rgba(148,163,184,.26);
+    border-radius: 24px;
+    background: var(--surface-secondary);
+    box-shadow: 0 34px 100px rgba(0,0,0,.28);
+}
+
+.cvm-latex-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 68px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.cvm-latex-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 235px;
+    margin-right: 8px;
+}
+
+.cvm-latex-brand-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    color: #fff;
+    background: linear-gradient(135deg, #4f46e5, #10b981);
+    font: 750 14px/1 Consolas, monospace;
+}
+
+.cvm-latex-brand-copy {
+    display: grid;
+    gap: 1px;
+}
+
+.cvm-latex-brand-copy strong {
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.cvm-latex-brand-copy small {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.cvm-latex-toolbar-spacer {
+    flex: 1;
+}
+
+.cvm-latex-button {
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-main);
+    background: var(--surface);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cvm-latex-button:hover {
+    border-color: var(--indigo);
+    color: var(--indigo);
+}
+
+.cvm-latex-button.primary {
+    border-color: transparent;
+    color: #fff;
+    background: var(--indigo);
+}
+
+.cvm-latex-button.success {
+    border-color: transparent;
+    color: #fff;
+    background: #0f8f68;
+}
+
+.cvm-latex-button.danger-quiet {
+    color: var(--text-secondary);
+}
+
+.cvm-latex-workspace {
+    display: grid;
+    grid-template-columns: minmax(360px, .95fr) minmax(420px, 1.05fr);
+    min-height: 0;
+}
+
+.cvm-latex-editor-pane,
+.cvm-latex-preview-pane {
+    min-width: 0;
+    min-height: 0;
+}
+
+.cvm-latex-editor-pane {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    border-right: 1px solid var(--border);
+    background: #111827;
+}
+
+.cvm-latex-pane-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 46px;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    color: #d7deea;
+    background: #0d1422;
+}
+
+.cvm-latex-pane-header strong {
+    font-size: 11px;
+    letter-spacing: .04em;
+}
+
+.cvm-latex-editor-status {
+    color: #8fa1bc;
+    font-size: 10px;
+}
+
+.cvm-latex-editor-wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
+    background: #111827;
+}
+
+.cvm-latex-line-numbers {
+    overflow: hidden;
+    padding: 14px 9px 80px 0;
+    border-right: 1px solid rgba(255,255,255,.06);
+    color: #5f6d84;
+    background: #0f1724;
+    text-align: right;
+    white-space: pre;
+    user-select: none;
+    font: 12px/1.62 Consolas, "Cascadia Code", monospace;
+}
+
+#cvmLatexEditor {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: 14px 18px 80px;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    resize: none;
+    color: #e7edf7;
+    caret-color: #a5b4fc;
+    background: #111827;
+    box-shadow: none;
+    tab-size: 4;
+    white-space: pre;
+    overflow: auto;
+    font: 12px/1.62 Consolas, "Cascadia Code", "Courier New", monospace;
+}
+
+#cvmLatexEditor::selection {
+    background: rgba(79,70,229,.42);
+}
+
+.cvm-latex-editor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 34px;
+    padding: 6px 12px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    color: #7f8ca3;
+    background: #0d1422;
+    font-size: 9px;
+}
+
+.cvm-latex-preview-pane {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    background: #e9edf5;
+}
+
+.cvm-latex-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 46px;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(148,163,184,.24);
+    background: rgba(255,255,255,.92);
+}
+
+.cvm-latex-preview-header strong {
+    color: #111827;
+    font-size: 11px;
+}
+
+.cvm-latex-preview-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    color: #667085;
+    background: #f3f5f9;
+    font-size: 9px;
+    font-weight: 750;
+}
+
+.cvm-latex-preview-state::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #98a2b3;
+}
+
+.cvm-latex-preview-state.clean {
+    color: #0f7a4f;
+    background: #e9f9f1;
+}
+
+.cvm-latex-preview-state.clean::before {
+    background: #10b981;
+}
+
+.cvm-latex-preview-state.stale {
+    color: #9a5c09;
+    background: #fff7e7;
+}
+
+.cvm-latex-preview-state.stale::before {
+    background: #f59e0b;
+}
+
+.cvm-latex-preview-scroll {
+    position: relative;
+    min-height: 0;
+    overflow: auto;
+    padding: 28px;
+}
+
+.cvm-latex-preview-pages {
+    display: grid;
+    gap: 24px;
+    justify-items: center;
+}
+
+.cvm-latex-preview-page {
+    display: block;
+    width: min(100%, 860px);
+    height: auto;
+    background: #fff;
+    box-shadow: 0 18px 50px rgba(15,23,42,.18);
+}
+
+.cvm-latex-empty {
+    display: grid;
+    place-items: center;
+    min-height: 100%;
+    padding: 40px;
+    text-align: center;
+    color: #667085;
+}
+
+.cvm-latex-empty-card {
+    max-width: 430px;
+    padding: 26px;
+    border: 1px solid rgba(148,163,184,.30);
+    border-radius: 18px;
+    background: rgba(255,255,255,.74);
+    box-shadow: 0 18px 44px rgba(15,23,42,.09);
+}
+
+.cvm-latex-empty-card strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #111827;
+    font-size: 18px;
+}
+
+.cvm-latex-stale-banner {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: min(100%, 860px);
+    margin: 0 auto 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(245,158,11,.30);
+    border-radius: 12px;
+    color: #92400e;
+    background: rgba(255,247,237,.97);
+    box-shadow: 0 10px 26px rgba(146,64,14,.10);
+    font-size: 11px;
+}
+
+.cvm-latex-stale-banner.visible {
+    display: flex;
+}
+
+.cvm-latex-compile-overlay {
+    position: absolute;
+    inset: 46px 0 0;
+    z-index: 7;
+    display: none;
+    place-items: center;
+    background: rgba(233,237,245,.76);
+    backdrop-filter: blur(5px);
+}
+
+.cvm-latex-compile-overlay.visible {
+    display: grid;
+}
+
+.cvm-latex-compile-card {
+    display: grid;
+    gap: 5px;
+    min-width: 210px;
+    padding: 16px 18px;
+    border: 1px solid rgba(148,163,184,.30);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(15,23,42,.16);
+    color: #111827;
+    text-align: center;
+}
+
+.cvm-latex-compile-card small {
+    color: #667085;
+}
+
+.cvm-latex-error {
+    width: min(100%, 860px);
+    margin: 0 auto;
+    padding: 16px;
+    border: 1px solid rgba(220,38,38,.20);
+    border-radius: 14px;
+    color: #991b1b;
+    background: #fff1f2;
+}
+
+.cvm-latex-error strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.cvm-latex-error pre {
+    max-height: 260px;
+    overflow: auto;
+    margin: 12px 0 0;
+    padding: 12px;
+    border-radius: 10px;
+    color: #ffd7dc;
+    background: #291217;
+    white-space: pre-wrap;
+    font: 10px/1.45 Consolas, monospace;
+}
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+html[data-theme="dark"] .cvm-v07-home-hero {
+    border-color: rgba(113,108,243,.20);
+    background:
+        radial-gradient(circle at 13% 18%, rgba(113,108,243,.13), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(16,185,129,.09), transparent 25%),
+        linear-gradient(135deg, #111827, #0e1524);
+    box-shadow: 0 28px 80px rgba(0,0,0,.34);
+}
+
+html[data-theme="dark"] .cvm-v07-home-copy h1,
+html[data-theme="dark"] .cvm-v07-mode-card,
+html[data-theme="dark"] .cvm-v07-graph-metrics strong,
+html[data-theme="dark"] .cvm-v07-status-float strong {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .cvm-v07-home-copy > p,
+html[data-theme="dark"] .cvm-v07-mode-copy small,
+html[data-theme="dark"] .cvm-v07-status-float small {
+    color: #a5afc0;
+}
+
+html[data-theme="dark"] .cvm-v07-mode-card,
+html[data-theme="dark"] .cvm-v07-graph-card,
+html[data-theme="dark"] .cvm-v07-code-float,
+html[data-theme="dark"] .cvm-v07-status-float {
+    border-color: rgba(255,255,255,.08);
+    background: rgba(20,28,44,.88);
+}
+
+html[data-theme="dark"] .cvm-v07-graph-metrics > span {
+    border-color: rgba(255,255,255,.06);
+    background: rgba(255,255,255,.035);
+}
+
+html[data-theme="dark"] .cvm-v07-pdf-stale {
+    border-color: rgba(245,158,11,.24);
+    color: #f8c46b;
+    background: rgba(67,44,12,.95);
+}
+
+html[data-theme="dark"] .cvm-v07-pdf-progress {
+    background: rgba(13,20,34,.78);
+}
+
+html[data-theme="dark"] .cvm-latex-preview-pane {
+    background: #0c111d;
+}
+
+html[data-theme="dark"] .cvm-latex-preview-header {
+    border-color: rgba(255,255,255,.07);
+    background: #121a2a;
+}
+
+html[data-theme="dark"] .cvm-latex-preview-header strong,
+html[data-theme="dark"] .cvm-latex-empty-card strong {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .cvm-latex-empty-card {
+    border-color: rgba(255,255,255,.08);
+    background: rgba(18,26,42,.78);
+}
+
+html[data-theme="dark"] .cvm-latex-empty {
+    color: #9aa6ba;
+}
+
+html[data-theme="dark"] .cvm-latex-stale-banner {
+    color: #f4c26b;
+    border-color: rgba(245,158,11,.24);
+    background: rgba(67,44,12,.95);
+}
+
+html[data-theme="dark"] .cvm-latex-compile-overlay {
+    background: rgba(8,12,21,.78);
+}
+
+html[data-theme="dark"] .cvm-latex-compile-card {
+    border-color: rgba(255,255,255,.08);
+    background: #151e2f;
+    color: #f8fafc;
+}
+
+/* ==========================================================
+   STRUCTURED CV EDITOR - DARK MODE CONSISTENCY
+   v0.6 used a few legacy variable names that were not defined by
+   themes.css in dark mode. Alias them here and explicitly own the
+   editor workspace so no light fallback leaks through.
+========================================================== */
+
+html[data-theme="dark"] {
+    --app-bg: #090b13;
+    --surface-alt: #111827;
+    --muted: #a5afc0;
+    --text: #f8fafc;
+}
+
+html[data-theme="dark"] .cvm-editor-window,
+html[data-theme="dark"] .cvm-editor-body,
+html[data-theme="dark"] .cvm-editor-workspace,
+html[data-theme="dark"] .cvm-editor-left-scroll,
+html[data-theme="dark"] .cvm-editor-pages,
+html[data-theme="dark"] .cvm-editor-overlay #page-content,
+html[data-theme="dark"] .cvm-editor-overlay #page-design,
+html[data-theme="dark"] .cvm-editor-overlay .editor-layout,
+html[data-theme="dark"] .cvm-editor-overlay .editor-column,
+html[data-theme="dark"] .cvm-editor-overlay .settings-grid {
+    background: #090b13 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-header {
+    background: linear-gradient(135deg, rgba(79,70,229,.17), #101522 72%) !important;
+    border-color: #293345 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-tabs {
+    background: #0d1422 !important;
+    border-color: #293345 !important;
+}
+
+html[data-theme="dark"] .cvm-editor-brand strong,
+html[data-theme="dark"] .cvm-editor-tab,
+html[data-theme="dark"] .cvm-editor-overlay .editor-card h2,
+html[data-theme="dark"] .cvm-editor-overlay .settings-card h2,
+html[data-theme="dark"] .cvm-editor-overlay .dynamic-card-header strong,
+html[data-theme="dark"] .cvm-editor-overlay .section-order-item strong,
+html[data-theme="dark"] .cvm-editor-overlay .toggle-row strong,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-spacing-control > span {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-tab:not(.active),
+html[data-theme="dark"] .cvm-editor-brand small,
+html[data-theme="dark"] .cvm-editor-overlay .field > span,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-field-hint,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-social-hint,
+html[data-theme="dark"] .cvm-editor-overlay .toggle-row span,
+html[data-theme="dark"] .cvm-editor-overlay .section-order-heading p,
+html[data-theme="dark"] .cvm-editor-overlay .drag-hint,
+html[data-theme="dark"] .cvm-editor-overlay small {
+    color: #a5afc0 !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay .editor-card,
+html[data-theme="dark"] .cvm-editor-overlay .settings-card,
+html[data-theme="dark"] .cvm-editor-overlay .dynamic-card,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-color-panel,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-switch-row,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-check-chip,
+html[data-theme="dark"] .cvm-editor-overlay .section-order-item,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-chip-editor,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-skill-editor,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-bullet-item,
+html[data-theme="dark"] .cvm-editor-overlay .template-preview-card,
+html[data-theme="dark"] .cvm-editor-overlay .info-box {
+    background: #111827 !important;
+    border-color: #293345 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 28px rgba(0,0,0,.18) !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay input,
+html[data-theme="dark"] .cvm-editor-overlay textarea,
+html[data-theme="dark"] .cvm-editor-overlay select,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-chip-input,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-skill-input {
+    background: #0d1422 !important;
+    border-color: #343e52 !important;
+    color: #f8fafc !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.025) !important;
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay input::placeholder,
+html[data-theme="dark"] .cvm-editor-overlay textarea::placeholder,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-chip-input::placeholder,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-skill-input::placeholder {
+    color: #7e899d !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay input:focus,
+html[data-theme="dark"] .cvm-editor-overlay textarea:focus,
+html[data-theme="dark"] .cvm-editor-overlay select:focus {
+    border-color: #716cf3 !important;
+    box-shadow: 0 0 0 3px rgba(113,108,243,.16) !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay .cvm-spacing-value,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-picker-nav,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-month-option,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-year-option {
+    background: #111827 !important;
+    border-color: #293345 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay .cvm-picker-popover,
+html[data-theme="dark"] .cvm-editor-overlay .cvm-language-card {
+    background: #0d1422 !important;
+    border-color: #293345 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay .preview-column,
+html[data-theme="dark"] .cvm-editor-overlay .preview-header {
+    background: #0d1422 !important;
+    border-color: #293345 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .cvm-editor-overlay .preview-scroll {
+    background: linear-gradient(145deg, #070b14, #111827) !important;
+}
+
+/* The CV itself stays white in every app theme because it represents
+   the printable document, not application chrome. */
+html[data-theme="dark"] .cvm-editor-overlay .cv-preview-paper {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1260px) {
+    .cvm-v07-home-hero {
+        grid-template-columns: 1fr;
+        padding: 42px;
+    }
+
+    .cvm-v07-home-visual {
+        min-height: 410px;
+    }
+
+    .cvm-v07-graph-card {
+        width: min(86%, 600px);
+    }
+
+    .cvm-latex-workspace {
+        grid-template-columns: minmax(330px, .9fr) minmax(380px, 1.1fr);
+    }
+}
+
+@media (max-width: 980px) {
+    .cvm-v07-home-hero {
+        padding: 32px 24px;
+        border-radius: 22px;
+    }
+
+    .cvm-v07-home-copy h1 {
+        font-size: clamp(42px, 9vw, 64px);
+    }
+
+    .cvm-v07-home-visual {
+        display: none;
+    }
+
+    .cvm-latex-shell {
+        inset: 8px;
+        border-radius: 16px;
+    }
+
+    .cvm-latex-workspace {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(340px, 1fr) minmax(340px, 1fr);
+    }
+
+    .cvm-latex-editor-pane {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .cvm-latex-brand {
+        min-width: 180px;
+    }
+}

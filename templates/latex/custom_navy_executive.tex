@@ -1,0 +1,48 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,top=0.8cm,bottom=0.8cm,left=0.9cm,right=0.9cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\definecolor{navy}{HTML}{111827}
+\definecolor{gold}{HTML}{D0AA70}
+\definecolor{cream}{HTML}{FFFDF9}
+\definecolor{textgray}{HTML}{596374}
+\hypersetup{colorlinks=true,urlcolor=navy,linkcolor=navy}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+\newcommand{\sectiontitle}[1]{\vspace{0.13cm}{\fontsize{10pt}{10.8pt}\selectfont\bfseries\color{navy}#1}\par\vspace{-0.03cm}{\color{gold}\rule{\linewidth}{0.7pt}}\par\vspace{0.03cm}}
+\newcommand{\entry}[4]{{\fontsize{8.9pt}{9.5pt}\selectfont\bfseries #1\hfill #4}\par{\fontsize{8.1pt}{8.8pt}\selectfont\color{textgray}\textbf{#2}\hfill #3}\par}
+\newcommand{\cvbullet}[1]{\noindent\hangindent=0.30cm\hangafter=1\makebox[0.23cm][l]{\color{gold}\textbullet}{\fontsize{8.1pt}{9pt}\selectfont\color{navy}#1}\par\vspace{0.02cm}}
+\begin{document}
+\colorbox{navy}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\vspace{0.16cm}\color{cream}\centering
+{\fontsize{24pt}{26pt}\selectfont\bfseries YOUR NAME}\par
+\vspace{0.04cm}{\fontsize{10pt}{11pt}\selectfont TARGET ROLE \textbar{} SECOND ROLE}\par
+\vspace{0.06cm}{\fontsize{7.6pt}{8.2pt}\selectfont City, Country \quad email@example.com \quad +00 0 00 00 00 \quad LinkedIn}\par\vspace{0.12cm}}}
+\sectiontitle{EXECUTIVE PROFILE}
+{\fontsize{8.2pt}{9.1pt}\selectfont\color{navy}Focused professional summary with your strongest capabilities, scope and target position.}\par
+\sectiontitle{EXPERIENCE}
+\entry{Job Title}{Company Name}{City, Country}{Month YEAR -- Present}
+\cvbullet{Describe a high-impact responsibility, analysis or improvement.}
+\cvbullet{Show the business outcome and quantify it when verified.}
+\vspace{0.05cm}
+\entry{Previous Role}{Previous Company}{City, Country}{YEAR -- YEAR}
+\cvbullet{Keep older experience concise and relevant.}
+\sectiontitle{EDUCATION}
+\entry{Degree / Program}{University}{City, Country}{YEAR -- YEAR}
+\sectiontitle{CORE SKILLS}
+{\fontsize{8.2pt}{9pt}\selectfont\color{navy}\textbf{Analytics:} SQL, Python, Power BI, Excel \quad \textbf{Business:} KPI, reporting, process improvement}\par
+\sectiontitle{LANGUAGES}
+{\fontsize{8.2pt}{9pt}\selectfont\color{navy}English C1 \textbar{} French C1 \textbar{} Arabic Native}\par
+\end{document}

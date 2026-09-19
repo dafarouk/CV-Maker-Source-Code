@@ -1,0 +1,136 @@
+:root {
+    color-scheme: light;
+
+    --white: #ffffff;
+    --soft-ice: #f6f8fc;
+
+    --surface: #ffffff;
+    --surface-secondary: #f6f8fc;
+    --surface-tertiary: #eef2f7;
+
+    --text-main: #111827;
+    --text-secondary: #667085;
+    --text-tertiary: #98a2b3;
+
+    --border: #dde3ea;
+    --border-soft: #edf0f4;
+
+    --navy: #111827;
+    --navy-soft: #1f2937;
+
+    --indigo: #4f46e5;
+    --indigo-hover: #4338ca;
+    --indigo-soft: #eef2ff;
+    --indigo-border: #c7d2fe;
+
+    --success: #16803c;
+    --success-soft: #eaf7ef;
+
+    --warning: #c47a12;
+    --warning-soft: #fff6e5;
+
+    --danger: #c83e4d;
+    --danger-soft: #fdf0f2;
+
+
+    /* JOURNAL - LIGHT MODE */
+
+    --journal-bg: #ffffff;
+    --journal-bg-secondary: #f8f9fc;
+
+    --journal-border: #dde3ea;
+
+    --journal-text: #111827;
+    --journal-muted: #667085;
+
+    --journal-line-border: #edf0f4;
+
+    --journal-scrollbar: #cbd2dd;
+
+    --journal-symbol-bg: #f0f2f6;
+
+
+    --shadow-sm:
+        0 1px 2px rgba(16, 24, 40, 0.04);
+
+    --shadow-md:
+        0 8px 24px rgba(16, 24, 40, 0.06);
+
+    --shadow-lg:
+        0 18px 50px rgba(16, 24, 40, 0.10);
+}
+
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --white: #ffffff;
+    --soft-ice: #111827;
+
+    --surface: #111827;
+    --surface-secondary: #0d1422;
+    --surface-tertiary: #182131;
+
+    --text-main: #f4f6fb;
+    --text-secondary: #a5afc0;
+    --text-tertiary: #7e899d;
+
+    --border: #293345;
+    --border-soft: #202a3a;
+
+    --navy: #f4f6fb;
+    --navy-soft: #d8deea;
+
+    --indigo: #716cf3;
+    --indigo-hover: #827df6;
+    --indigo-soft: #24234c;
+    --indigo-border: #3b3970;
+
+    --success: #4abb73;
+    --success-soft: #153624;
+
+    --warning: #e5a348;
+    --warning-soft: #3d2c13;
+
+    --danger: #ef6b79;
+    --danger-soft: #3b1e24;
+
+
+    /* JOURNAL - DARK MODE */
+
+    --journal-bg: #080c15;
+    --journal-bg-secondary: #0c111e;
+
+    --journal-border: #202a3d;
+
+    --journal-text: #edf1f8;
+    --journal-muted: #7f8aa1;
+
+    --journal-line-border:
+        rgba(
+            255,
+            255,
+            255,
+            0.055
+        );
+
+    --journal-scrollbar: #2a3550;
+
+    --journal-symbol-bg:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+
+    --shadow-sm:
+        0 1px 2px rgba(0, 0, 0, 0.20);
+
+    --shadow-md:
+        0 8px 24px rgba(0, 0, 0, 0.24);
+
+    --shadow-lg:
+        0 18px 50px rgba(0, 0, 0, 0.32);
+}

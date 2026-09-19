@@ -1,0 +1,167 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[
+  a4paper,
+  top=7.0mm,
+  bottom=7.0mm,
+  left=9.0mm,
+  right=9.0mm
+]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{iftex}
+\ifPDFTeX
+\input{glyphtounicode}
+\pdfgentounicode=1
+\fi
+
+\usepackage{tgheros}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{namecolor}{HTML}{111827}
+\definecolor{sectioncolor}{HTML}{8B1540}
+\definecolor{rolecolor}{HTML}{111827}
+\definecolor{subtitlecolor}{HTML}{111827}
+\definecolor{linecolor}{HTML}{8B1540}
+\definecolor{linkcolor}{HTML}{111827}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkcolor,
+  linkcolor=linkcolor,
+  pdfauthor={Alex Morgan},
+  pdftitle={CV Alex Morgan}
+}
+\urlstyle{same}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\color{ink}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=4000
+\emergencystretch=2em
+
+\newcommand{\sectiongap}{1.0mm}
+\newcommand{\titlebeforegap}{0.0mm}
+\newcommand{\titleaftergap}{0.6mm}
+\newcommand{\separatorgap}{0.2mm}
+\newcommand{\entrygap}{1.0mm}
+\newcommand{\bulletgap}{0.2mm}
+\newcommand{\bodyfontsize}{8.2pt}
+\newcommand{\bodybaseline}{9.1pt}
+
+\newcommand{\sectiontitle}[1]{%
+  \vspace{\sectiongap}%
+  \vspace{\titlebeforegap}%
+  {\color{sectioncolor}\fontsize{11.2pt}{11.8pt}\selectfont\bfseries #1}\par
+  \vspace{\titleaftergap}%
+  {\color{linecolor}\rule{\linewidth}{0.9pt}}\par
+  \vspace{\separatorgap}%
+}
+
+\newcommand{\jobheader}[5]{%
+  {\color{rolecolor}\fontsize{9pt}{#5pt}\selectfont\bfseries #1}\par
+  {\color{subtitlecolor}\fontsize{8.5pt}{#5pt}\selectfont\textbf{#2}\hfill\textbf{#4}}\par
+  {\fontsize{7.9pt}{#5pt}\selectfont #3}\par
+  \vspace{0.03cm}
+}
+
+\newcommand{\cvbullet}[2]{%
+  \noindent
+  \hangindent=0.28cm
+  \hangafter=1
+  \makebox[0.22cm][l]{\textbullet}%
+  {\fontsize{8.15pt}{#2pt}\selectfont #1}\par
+  \vspace{\bulletgap}
+}
+
+\newcommand{\tools}[2]{%
+  {\fontsize{7.9pt}{#2pt}\selectfont\textbf{Tools:} #1}\par
+}
+
+\newcommand{\edu}[5]{%
+  {\color{rolecolor}\fontsize{8.35pt}{#5pt}\selectfont\textbf{#1}\hfill\textbf{#3}}\par
+  {\color{subtitlecolor}\fontsize{7.8pt}{#5pt}\selectfont #2}\par
+  {\fontsize{7.65pt}{#5pt}\selectfont #4}\par
+  \vspace{0.07cm}
+}
+
+\begin{document}
+\fontsize{\bodyfontsize}{\bodybaseline}\selectfont
+
+{\centering
+{\color{namecolor}\fontsize{27pt}{29pt}\selectfont\bfseries Alex Morgan}\par
+
+\vspace{0.07cm}
+{\color{rolecolor}\fontsize{10.2pt}{10.8pt}\selectfont\bfseries
+Data Analyst
+\textbar{}Business Intelligence Analyst\par}
+
+\vspace{0.06cm}
+{\fontsize{7.7pt}{8.2pt}\selectfont
+Paris, France\hspace{0.5em}\textbar{}\hspace{0.5em}\href{\detokenize{mailto:alex.morgan@example.com}}{alex.morgan@example.com}\hspace{0.5em}\textbar{}\hspace{0.5em}+33 6 00 00 00 00\hspace{0.5em}\textbar{}\hspace{0.5em}\href{\detokenize{https://linkedin.com/in/alex-morgan}}{LinkedIn}\hspace{0.5em}\textbar{}\hspace{0.5em}\href{\detokenize{https://github.com/alex-morgan}}{GitHub}\hspace{0.5em}\textbar{}\hspace{0.5em}\href{\detokenize{https://example.com}}{Website}}\par
+}
+
+\vspace{0.06cm}
+{\color{linecolor}\rule{\textwidth}{1pt}}
+
+
+\vspace{0.0mm}
+\sectiontitle{PROFILE}
+\parbox{\linewidth}{\raggedright\fontsize{8.2pt}{9.1pt}\selectfont Data Analyst with experience in reporting, KPI monitoring, dashboard development and business process automation. Skilled in Power BI, SQL, Excel and Python.}\par
+\vspace{0.0mm}
+
+
+\vspace{0.0mm}
+\sectiontitle{PROFESSIONAL EXPERIENCE}
+\jobheader{Data Analyst}{Example Company}{Paris, France}{January 2025 - Present}{9.05}
+\cvbullet{Built operational dashboards to monitor business KPIs and recurring performance trends.}{9.05}\cvbullet{Automated recurring reporting tasks using Python and Excel to reduce manual processing.}{9.05}\cvbullet{Worked with business teams to validate data quality and reporting requirements.}{9.05}\tools{Power BI, SQL, Python, Excel}{9.05}\vspace{0.0mm}
+
+
+\vspace{0.0mm}
+\sectiontitle{EDUCATION}
+\edu{Master's Degree in Data Analytics}{Example University, Paris, France}{2024 - 2026}{Business intelligence, data analysis, databases and analytics.}{8.77}
+\vspace{0.0mm}
+
+
+\vspace{0.0mm}
+\sectiontitle{PROJECTS}
+{\color{rolecolor}\fontsize{8.5pt}{9.05pt}\selectfont\textbf{Sales Performance Dashboard}\hfill\textbf{2026}}\par
+{\color{subtitlecolor}\fontsize{7.8pt}{9.05pt}\selectfont Personal analytics project}\par\cvbullet{Created an interactive dashboard to analyse revenue, products and regional performance.}{9.05}\tools{Power BI, SQL}{9.05}\vspace{0.0mm}
+
+
+
+\vspace{0.0mm}
+\sectiontitle{TECHNICAL SKILLS}
+{\fontsize{8pt}{8.88pt}\selectfont
+\textbf{Analysis \& BI:} Power BI, Excel, Tableau, KPI, Reporting.\par\textbf{Data \& SQL:} SQL, Python, MySQL, Data Quality, Data Modelling.\par\textbf{Automation \& Tools:} VBA, Power Automate, Git, Jira.\par}
+\vspace{0.0mm}
+
+
+\vspace{0.0mm}
+\sectiontitle{LANGUAGES}
+{\fontsize{8pt}{8.88pt}\selectfont
+\textbf{English:} C1
+\hspace{1.5em}\textbar{}\hspace{1.5em}\textbf{French:} C1
+}
+\vspace{0.0mm}
+
+
+\vspace{0.0mm}
+\sectiontitle{CERTIFICATIONS}
+{\fontsize{7.9pt}{8.77pt}\selectfont
+\textbf{Power BI Certification} -- Example (2026)}
+\vspace{0.0mm}
+
+\end{document}

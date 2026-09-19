@@ -1,0 +1,78 @@
+/* ==========================================================
+   CVM 0.7.2 - PERFORMANCE LAYER
+   Loaded last so it can neutralize expensive legacy effects
+   without changing the cream/navy/gold visual identity.
+   ========================================================== */
+
+:root {
+    --cvm-fast-shadow: 0 10px 28px rgba(17, 24, 39, .10);
+}
+
+.topbar,
+.sidebar,
+.cvm-toolbar-group,
+.cvm-modal-layer,
+.cvm-modal,
+.feature-card,
+.cvm-v07-mode-card,
+.cvm-v07-graph-card,
+.cvm-v07-code-float,
+.cvm-v07-status-float,
+.cvm-editor-overlay,
+.cvm-latex-overlay,
+.cvm-latex-compile-overlay,
+.cvm-v07-pdf-progress,
+.activity-panel {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+body.cvm-editor-open > #appShell {
+    filter: none !important;
+    transform: none !important;
+    opacity: .30;
+}
+
+.cvm-editor-overlay,
+.cvm-latex-overlay,
+.cvm-modal-layer {
+    background-color: rgba(10, 15, 24, .66) !important;
+}
+
+.page.active,
+.cvm-modal,
+.cvm-v07-home-page,
+.cvm-editor-window,
+.cvm-latex-window {
+    animation: none !important;
+}
+
+.cvm-v07-home-hero,
+.cvm-v07-mode-card,
+.cvm-v07-graph-card,
+.editor-card,
+.settings-card,
+.export-card,
+.feature-card,
+.cvm-editor-window,
+.cvm-latex-window {
+    box-shadow: var(--cvm-fast-shadow) !important;
+}
+
+.hero-orb,
+.cvm-v07-visual-glow,
+.cvm-home-orb,
+.cvm-home-glow {
+    filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+    }
+}

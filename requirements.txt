@@ -1,0 +1,7 @@
+Jinja2==3.1.6
+packaging==26.3
+Pillow==12.3.0
+platformdirs==4.11.9
+PyMuPDF==1.28.2
+python-docx==1.2.0
+pywebview==6.2.1

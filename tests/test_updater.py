@@ -12,6 +12,7 @@ from src.config import (
     UPDATE_CHECK_INTERVAL_HOURS,
     UPDATE_DOWNLOAD_DIR,
     UPDATE_HASH_ASSET_NAME,
+    UPDATE_SUCCESS_FILE,
 )
 from src.updater import UpdateService
 
@@ -21,6 +22,7 @@ def test_github_repository_is_configured() -> None:
     assert UPDATE_CHECK_INTERVAL_HOURS == 24
     assert UPDATE_HASH_ASSET_NAME == "SHA256.txt"
     assert UPDATE_DOWNLOAD_DIR.name == "updates"
+    assert UPDATE_SUCCESS_FILE.name == "update_success.json"
 
 
 def test_version_parser_handles_release_tags() -> None:
@@ -69,3 +71,45 @@ def test_release_script_requires_hash_upload() -> None:
     script = (ROOT / "build" / "release_windows.ps1").read_text(encoding="utf-8")
     assert "SHA256.txt" in script
     assert "Setup EXE, ZIP and SHA256.txt" in script
+
+
+def test_updater_reports_download_progress_and_uses_visible_installer() -> None:
+    updater = (ROOT / "src" / "updater.py").read_text(encoding="utf-8")
+    bridge = (ROOT / "src" / "bridge.py").read_text(encoding="utf-8")
+
+    assert "progress_callback" in updater
+    assert 'response.headers.get("Content-Length")' in updater
+    assert '"downloaded_bytes"' in updater
+    assert '"total_bytes"' in updater
+    assert '"/SILENT"' in updater
+    assert '"/VERYSILENT"' not in updater
+    assert '"cvmUpdaterReceiveProgress"' in bridge
+
+
+def test_updater_centered_progress_ui_and_preview_labels_are_visible() -> None:
+    updater_ui = (ROOT / "ui" / "js" / "updater_ui.js").read_text(encoding="utf-8")
+    css = (ROOT / "ui" / "css" / "product_polish.css").read_text(encoding="utf-8")
+
+    assert "cvmUpdaterReceiveProgress" in updater_ui
+    assert "cvm-updater-progress-layer" in updater_ui
+    assert "Do not close or reopen CV Maker manually" in updater_ui
+    assert '#cvPreview strong' in css
+    assert '#cvPreview .preview-tools' in css
+    assert '.cvm-updater-progress-layer' in css
+
+
+def test_post_update_success_marker_and_changelog_are_present() -> None:
+    updater = (ROOT / "src" / "updater.py").read_text(encoding="utf-8")
+    updater_ui = (ROOT / "ui" / "js" / "updater_ui.js").read_text(encoding="utf-8")
+    css = (ROOT / "ui" / "css" / "product_polish.css").read_text(encoding="utf-8")
+
+    assert "_capture_legacy_completed_update" in updater
+    assert "_write_pending_update" in updater
+    assert "consume_completed_update" in updater
+    assert '"completed_update"' in updater
+    assert "cvmUpdaterShowCompletedUpdate" in updater_ui
+    assert "CV Maker updated successfully" in updater_ui
+    assert "Problems fixed & improvements" in updater_ui
+    assert "cvmUpdaterV102Highlights" in updater_ui
+    assert ".cvm-update-success-hero" in css
+    assert ".cvm-update-fix-item" in css

@@ -34,7 +34,6 @@ def test_new_save_uses_cvm_and_contains_format_marker() -> None:
     with tempfile.TemporaryDirectory(prefix="cvm_release_") as temp_dir:
         target = Path(temp_dir) / "demo.cvproject"
         saved = manager.save(project, target)
-
         assert saved.suffix.lower() == ".cvm"
         assert saved.exists()
 
@@ -49,7 +48,6 @@ def test_new_save_uses_cvm_and_contains_format_marker() -> None:
 def test_legacy_cvproject_still_loads() -> None:
     manager = ProjectManager()
     project = create_demo_project()
-
     with tempfile.TemporaryDirectory(prefix="cvm_legacy_") as temp_dir:
         legacy = Path(temp_dir) / "legacy.cvproject"
         legacy.write_text(
@@ -109,6 +107,6 @@ def test_release_script_generates_github_ready_assets() -> None:
     assert "Setup EXE, ZIP and SHA256.txt" in script
 
 
-def test_current_version_is_1_0_1() -> None:
-    # 1.0.1 is the first maintenance update after the validated 1.0.0 public release.
-    assert APP_VERSION == "1.0.1"
+def test_current_version_is_1_0_2() -> None:
+    # 1.0.2 contains the HTML preview fix, LaTeX IDE upgrade and updater UX improvements.
+    assert APP_VERSION == "1.0.2"

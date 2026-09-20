@@ -1612,7 +1612,15 @@ def _v05_check_for_updates(self, manual: bool = True) -> dict:
 
 
 def _v05_download_update(self) -> dict:
-    return self._updater.download_latest()
+    def report_progress(payload: dict) -> None:
+        self._call_js(
+            "cvmUpdaterReceiveProgress",
+            payload,
+        )
+
+    return self._updater.download_latest(
+        progress_callback=report_progress,
+    )
 
 
 def _v05_install_update(self, installer_path: str) -> dict:

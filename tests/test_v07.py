@@ -13,7 +13,7 @@ from src.latex_workspace import LatexWorkspace
 
 
 def test_version() -> None:
-    assert APP_VERSION == "1.0.1"
+    assert APP_VERSION == "1.0.2"
 
 
 def test_home_and_assets() -> None:
@@ -21,7 +21,6 @@ def test_home_and_assets() -> None:
     css = (ROOT / "ui" / "css" / "v07.css").read_text(encoding="utf-8")
     brand_css = (ROOT / "ui" / "css" / "brand_damergi.css").read_text(encoding="utf-8")
     js = (ROOT / "ui" / "js" / "v07_features.js").read_text(encoding="utf-8")
-
     assert 'id="cvmLatexHomeBtn"' in index
     assert 'id="newCvBtn"' in index
     assert 'id="demoBtn"' in index
@@ -29,6 +28,8 @@ def test_home_and_assets() -> None:
     assert 'css/brand_damergi.css' in index
     assert 'js/v07_features.js' in index
     assert 'js/v101_core.js' in index
+    assert 'js/latex_ide.js' in index
+    assert 'css/latex_ide.css' in index
     assert 'data-theme="dark"' in index
     assert 'id="connectionBadge"' not in index
     assert 'id="themeToggle"' not in index
@@ -54,7 +55,6 @@ def test_latex_starter_and_save() -> None:
     assert "\\documentclass" in source
     assert "\\begin{document}" in source
     assert "\\end{document}" in source
-
     with tempfile.TemporaryDirectory(prefix="cvm_v07_") as temp_dir:
         target = Path(temp_dir) / "custom_cv.tex"
         result = workspace.save_source(source, target)
@@ -73,7 +73,6 @@ def main() -> None:
     for check in checks:
         check()
         print(f"PASS {check.__name__}")
-
     print()
     print(f"CVM {APP_VERSION} TESTS OK")
 

@@ -12,12 +12,11 @@ from src.latex_workspace import LatexWorkspace
 
 
 def test_version() -> None:
-    assert APP_VERSION == "1.0.1"
+    assert APP_VERSION == "1.0.2"
 
 
 def test_patch_layers_are_consolidated() -> None:
     index = (ROOT / "ui" / "index.html").read_text(encoding="utf-8")
-
     for old_css in ("v073.css", "v074.css", "v075.css"):
         assert old_css not in index
         assert not (ROOT / "ui" / "css" / old_css).exists()
@@ -29,7 +28,6 @@ def test_patch_layers_are_consolidated() -> None:
     ):
         assert old_js not in index
         assert not (ROOT / "ui" / "js" / old_js).exists()
-
     assert 'css/product_polish.css' in index
     assert 'js/product_ui.js' in index
     assert index.index('js/performance_v072.js') < index.index('js/product_ui.js')
@@ -38,7 +36,6 @@ def test_patch_layers_are_consolidated() -> None:
 def test_template_gallery_is_single_and_non_recursive() -> None:
     js = (ROOT / "ui" / "js" / "product_ui.js").read_text(encoding="utf-8")
     css = (ROOT / "ui" / "css" / "product_polish.css").read_text(encoding="utf-8")
-
     assert "cvmProductOpenGallery" in js
     assert "cvmProductUseSelectedTemplate" in js
     assert "cvmProductConfirmTemplateReplace" in js
@@ -60,7 +57,6 @@ def test_native_append_order_is_preserved() -> None:
 
 def test_gold_scrollbars_and_legacy_color_cleanup_layer() -> None:
     css = (ROOT / "ui" / "css" / "product_polish.css").read_text(encoding="utf-8")
-
     assert "scrollbar-color" in css
     assert "#D0AA70" in css
     assert "#BC965D" in css
@@ -72,7 +68,6 @@ def test_gold_scrollbars_and_legacy_color_cleanup_layer() -> None:
 def test_ats_reset_and_large_result_ui() -> None:
     js = (ROOT / "ui" / "js" / "product_ui.js").read_text(encoding="utf-8")
     css = (ROOT / "ui" / "css" / "product_polish.css").read_text(encoding="utf-8")
-
     assert "cvmProductResetAts" in js
     assert "cvmProductRunAts" in js
     assert "How CVM checked your CV" in js
@@ -83,7 +78,6 @@ def test_ats_reset_and_large_result_ui() -> None:
 def test_job_match_product_surface_is_removed() -> None:
     index = (ROOT / "ui" / "index.html").read_text(encoding="utf-8")
     bridge = (ROOT / "src" / "bridge.py").read_text(encoding="utf-8")
-
     assert 'data-page="job"' not in index
     assert 'id="page-job"' not in index
     assert "analyze_job_match" not in bridge
@@ -119,7 +113,6 @@ def main() -> None:
     for check in checks:
         check()
         print(f"PASS {check.__name__}")
-
     print()
     print(f"CVM {APP_VERSION} FINAL CLEANUP TESTS OK")
 

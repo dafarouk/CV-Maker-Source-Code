@@ -2444,3 +2444,258 @@ html[data-theme="dark"] .brand-logo {
         grid-column: 1 / -1;
     }
 }
+
+/* ==========================================================
+   CVM UPDATE UX + HTML PREVIEW FIX
+========================================================== */
+
+/* The app is permanently dark, but the CV itself is paper-white.
+   Keep bold labels such as Tools/Outils, skill group names and
+   language names readable inside the HTML preview. */
+html[data-theme="dark"] .cvm-editor-overlay #cvPreview strong,
+html[data-theme="dark"] .cvm-editor-overlay #cvPreview .preview-tools {
+    color: #111827 !important;
+}
+
+/* Centered updater handoff / download progress window. */
+.cvm-updater-progress-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 120000;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(3, 7, 13, .76);
+    backdrop-filter: blur(12px);
+}
+
+.cvm-updater-progress-layer.hidden {
+    display: none !important;
+}
+
+.cvm-updater-progress-card {
+    width: min(520px, calc(100vw - 48px));
+    padding: 28px;
+    border: 1px solid rgba(208, 170, 112, .30);
+    border-radius: 22px;
+    color: #F8F6F1;
+    background:
+        radial-gradient(circle at 18% 0%, rgba(208, 170, 112, .10), transparent 34%),
+        linear-gradient(145deg, #171E29, #10161F);
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, .50),
+        inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.cvm-updater-progress-brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.cvm-updater-progress-mark {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(208, 170, 112, .26);
+    border-radius: 14px;
+    color: #E1BF86;
+    background: rgba(208, 170, 112, .08);
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.cvm-updater-progress-eyebrow {
+    color: #D0AA70;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.cvm-updater-progress-card h2 {
+    margin: 4px 0 0;
+    color: #FFFDF9 !important;
+    font-size: 23px;
+    line-height: 1.15;
+}
+
+.cvm-updater-progress-message {
+    min-height: 42px;
+    margin: 0 0 18px;
+    color: #AEB7C6 !important;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.cvm-updater-progress-track {
+    position: relative;
+    height: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .055);
+    border-radius: 999px;
+    background: #090E15;
+}
+
+.cvm-updater-progress-bar {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #BC965D, #D0AA70, #E7C98D);
+    box-shadow: 0 0 22px rgba(208, 170, 112, .24);
+    transition: width .18s ease;
+}
+
+.cvm-updater-progress-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 10px;
+    color: #AEB7C6;
+    font-size: 11px;
+}
+
+.cvm-updater-progress-meta strong {
+    color: #F8F6F1 !important;
+    font-size: 13px;
+}
+
+.cvm-updater-progress-notice {
+    margin: 20px 0 0;
+    padding: 13px 14px;
+    border: 1px solid rgba(208, 170, 112, .18);
+    border-radius: 13px;
+    color: #E7D4B3 !important;
+    background: rgba(188, 150, 93, .075);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.cvm-updater-progress-card.is-installing .cvm-updater-progress-bar {
+    background: linear-gradient(90deg, #D0AA70, #F0D8AA);
+}
+
+.cvm-updater-progress-card.is-error {
+    border-color: rgba(239, 68, 68, .30);
+}
+
+
+/* ==========================================================
+   CVM v1.0.2 - UPDATE RELEASE NOTES / SUCCESS EXPERIENCE
+========================================================== */
+
+.cvm-update-release-card {
+    margin-top: 16px;
+    padding: 17px;
+    border: 1px solid rgba(208, 170, 112, .18);
+    border-radius: 16px;
+    background:
+        linear-gradient(145deg, rgba(208, 170, 112, .055), rgba(255, 255, 255, .018)),
+        #121923;
+}
+
+.cvm-update-release-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.cvm-update-release-heading strong {
+    color: #FFFDF9 !important;
+    font-size: 13px;
+}
+
+.cvm-update-version-pill {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    border: 1px solid rgba(208, 170, 112, .24);
+    border-radius: 999px;
+    color: #E5C58F;
+    background: rgba(188, 150, 93, .09);
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .05em;
+}
+
+.cvm-update-fix-list {
+    display: grid;
+    gap: 9px;
+}
+
+.cvm-update-fix-item {
+    display: grid;
+    grid-template-columns: 27px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 11px 12px;
+    border: 1px solid rgba(255, 255, 255, .055);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .025);
+}
+
+.cvm-update-fix-check {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgba(63, 181, 120, .24);
+    border-radius: 50%;
+    color: #72D39F;
+    background: rgba(63, 181, 120, .09);
+    font-size: 13px;
+    font-weight: 950;
+}
+
+.cvm-update-fix-copy {
+    min-width: 0;
+    color: #D6DCE6;
+    font-size: 12px;
+    line-height: 1.48;
+}
+
+.cvm-update-success-hero {
+    display: grid;
+    place-items: center;
+    gap: 11px;
+    padding: 5px 0 8px;
+    text-align: center;
+}
+
+.cvm-update-success-icon {
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    border: 1px solid rgba(63, 181, 120, .27);
+    border-radius: 20px;
+    color: #7DDAA9;
+    background:
+        radial-gradient(circle at 35% 22%, rgba(255, 255, 255, .08), transparent 38%),
+        rgba(63, 181, 120, .10);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, .18);
+    font-size: 28px;
+    font-weight: 950;
+}
+
+.cvm-update-success-hero strong {
+    color: #FFFDF9 !important;
+    font-size: 15px;
+}
+
+.cvm-update-success-hero span {
+    color: #AEB7C6;
+    font-size: 11px;
+}
+
+#cvmUpdateCompleteModal {
+    width: min(660px, calc(100vw - 48px)) !important;
+}
+
+#cvmUpdateCompleteModal .cvm-modal-body {
+    padding-top: 18px !important;
+}

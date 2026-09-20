@@ -10,7 +10,7 @@ import time
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from packaging.version import InvalidVersion, Version
 
@@ -22,6 +22,7 @@ from src.config import (
     UPDATE_CHECK_INTERVAL_HOURS,
     UPDATE_DOWNLOAD_DIR,
     UPDATE_HASH_ASSET_NAME,
+    UPDATE_SUCCESS_FILE,
 )
 
 
@@ -30,7 +31,137 @@ class UpdateService:
 
     def __init__(self) -> None:
         UPDATE_DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        self._capture_legacy_completed_update()
         self._cleanup_downloads()
+
+    def _capture_legacy_completed_update(self) -> None:
+        """
+        Detect an update completed by an older CVM updater that did not yet
+        create an explicit success marker.
+
+        CVM 1.0.1 stores the previous/current release pair in update_check.json
+        and leaves the downloaded Setup EXE in the update directory. When the
+        newly installed version starts, those two facts are enough to prove an
+        in-app update completed successfully.
+        """
+        if UPDATE_SUCCESS_FILE.exists():
+            return
+
+        cache = self._read_json(UPDATE_CACHE_FILE, {})
+        previous = str(cache.get("current") or "").strip().lstrip("vV")
+        latest = str(cache.get("latest") or "").strip().lstrip("vV")
+
+        if not previous or not latest:
+            return
+
+        current_version = self._version(APP_VERSION)
+        previous_version = self._version(previous)
+        latest_version = self._version(latest)
+
+        if (
+            current_version is None
+            or previous_version is None
+            or latest_version is None
+            or latest_version != current_version
+            or previous_version >= current_version
+        ):
+            return
+
+        expected_names = {
+            f"CV-Maker-Setup-{APP_VERSION}.exe".casefold(),
+            f"CV-Maker-Setup-v{APP_VERSION}.exe".casefold(),
+        }
+        installer = next(
+            (
+                path
+                for path in UPDATE_DOWNLOAD_DIR.glob("CV-Maker-Setup-*.exe")
+                if path.name.casefold() in expected_names
+            ),
+            None,
+        )
+
+        if installer is None:
+            return
+
+        self._write_json(
+            UPDATE_SUCCESS_FILE,
+            {
+                "status": "completed",
+                "from_version": previous,
+                "to_version": APP_VERSION,
+                "notes": "",
+                "release_url": (
+                    f"https://github.com/{GITHUB_REPOSITORY}/releases/tag/v{APP_VERSION}"
+                ),
+                "installer_name": installer.name,
+                "legacy_detected": True,
+                "created_at": time.time(),
+            },
+        )
+
+    def _write_pending_update(self, release: dict, installer_name: str) -> None:
+        self._write_json(
+            UPDATE_SUCCESS_FILE,
+            {
+                "status": "pending",
+                "from_version": APP_VERSION,
+                "to_version": str(release.get("latest") or ""),
+                "notes": str(release.get("notes") or ""),
+                "release_url": str(release.get("release_url") or ""),
+                "installer_name": installer_name,
+                "created_at": time.time(),
+            },
+        )
+
+    def _mark_install_started(self, installer_name: str) -> None:
+        marker = self._read_json(UPDATE_SUCCESS_FILE, {})
+        if not isinstance(marker, dict):
+            marker = {}
+
+        marker.update(
+            {
+                "status": "installing",
+                "installer_name": installer_name,
+                "install_started_at": time.time(),
+            }
+        )
+        self._write_json(UPDATE_SUCCESS_FILE, marker)
+
+    def consume_completed_update(self) -> dict | None:
+        marker = self._read_json(UPDATE_SUCCESS_FILE, {})
+        if not isinstance(marker, dict) or not marker:
+            return None
+
+        target_text = str(marker.get("to_version") or "").strip().lstrip("vV")
+        source_text = str(marker.get("from_version") or "").strip().lstrip("vV")
+        target_version = self._version(target_text)
+        current_version = self._version(APP_VERSION)
+
+        if target_version is None or current_version is None:
+            return None
+
+        if target_version != current_version:
+            return None
+
+        if source_text:
+            source_version = self._version(source_text)
+            if source_version is not None and source_version >= current_version:
+                return None
+
+        payload = {
+            "from_version": source_text,
+            "to_version": APP_VERSION,
+            "notes": str(marker.get("notes") or ""),
+            "release_url": str(marker.get("release_url") or ""),
+            "legacy_detected": bool(marker.get("legacy_detected")),
+        }
+
+        try:
+            UPDATE_SUCCESS_FILE.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+        return payload
 
     def _cleanup_downloads(self) -> None:
         # Remove interrupted downloads and installers that are no longer
@@ -233,11 +364,14 @@ class UpdateService:
     # ========================================================
 
     def check(self, manual: bool = False) -> dict:
+        completed_update = self.consume_completed_update()
+
         if not GITHUB_REPOSITORY:
             return {
                 "ok": False,
                 "configured": False,
                 "message": "GitHub repository is not configured yet.",
+                "completed_update": completed_update,
             }
 
         cache = self._read_json(UPDATE_CACHE_FILE, {})
@@ -258,9 +392,11 @@ class UpdateService:
                 "next_check_in_seconds": int(
                     max(0, interval_seconds - (now - last_checked))
                 ),
+                "completed_update": completed_update,
             }
 
         result = self._fetch_latest_release()
+        result["completed_update"] = completed_update
 
         if result.get("ok"):
             self._write_json(
@@ -310,7 +446,32 @@ class UpdateService:
 
         return ""
 
-    def download_latest(self) -> dict:
+    @staticmethod
+    def _emit_progress(
+        callback: Callable[[dict[str, Any]], None] | None,
+        payload: dict[str, Any],
+    ) -> None:
+        if callback is None:
+            return
+        try:
+            callback(payload)
+        except Exception:
+            # Progress reporting must never break a valid update download.
+            pass
+
+    def download_latest(
+        self,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> dict:
+        self._emit_progress(
+            progress_callback,
+            {
+                "phase": "preparing",
+                "percent": 0,
+                "message": "Preparing the update download...",
+            },
+        )
+
         release = self._fetch_latest_release()
         if not release.get("ok"):
             return release
@@ -371,6 +532,26 @@ class UpdateService:
 
         try:
             with urllib.request.urlopen(request, timeout=30) as response:
+                header_size = 0
+                try:
+                    header_size = int(response.headers.get("Content-Length") or 0)
+                except (TypeError, ValueError):
+                    header_size = 0
+
+                total_bytes = header_size or int(release.get("setup_size") or 0)
+                downloaded_bytes = 0
+
+                self._emit_progress(
+                    progress_callback,
+                    {
+                        "phase": "download",
+                        "percent": 0,
+                        "downloaded_bytes": 0,
+                        "total_bytes": total_bytes,
+                        "message": "Downloading the verified CV Maker installer...",
+                    },
+                )
+
                 with partial.open("wb") as handle:
                     while True:
                         chunk = response.read(1024 * 1024)
@@ -378,11 +559,46 @@ class UpdateService:
                             break
                         handle.write(chunk)
                         digest.update(chunk)
+                        downloaded_bytes += len(chunk)
+
+                        percent = 0
+                        if total_bytes > 0:
+                            percent = min(100, int(downloaded_bytes * 100 / total_bytes))
+
+                        self._emit_progress(
+                            progress_callback,
+                            {
+                                "phase": "download",
+                                "percent": percent,
+                                "downloaded_bytes": downloaded_bytes,
+                                "total_bytes": total_bytes,
+                                "message": "Downloading the verified CV Maker installer...",
+                            },
+                        )
+
+                self._emit_progress(
+                    progress_callback,
+                    {
+                        "phase": "verify",
+                        "percent": 100,
+                        "downloaded_bytes": downloaded_bytes,
+                        "total_bytes": total_bytes or downloaded_bytes,
+                        "message": "Download complete. Verifying SHA-256 integrity...",
+                    },
+                )
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             try:
                 partial.unlink(missing_ok=True)
             except OSError:
                 pass
+            self._emit_progress(
+                progress_callback,
+                {
+                    "phase": "error",
+                    "percent": 0,
+                    "message": f"Update download failed: {exc}",
+                },
+            )
             return {
                 "ok": False,
                 "message": f"Update download failed: {exc}",
@@ -394,12 +610,33 @@ class UpdateService:
                 partial.unlink(missing_ok=True)
             except OSError:
                 pass
+            self._emit_progress(
+                progress_callback,
+                {
+                    "phase": "error",
+                    "percent": 100,
+                    "message": "The downloaded update failed SHA-256 verification.",
+                },
+            )
             return {
                 "ok": False,
                 "message": "The downloaded update failed the SHA-256 verification.",
             }
 
         partial.replace(target)
+        self._write_pending_update(
+            release,
+            setup_name,
+        )
+
+        self._emit_progress(
+            progress_callback,
+            {
+                "phase": "verified",
+                "percent": 100,
+                "message": "Update downloaded and verified successfully.",
+            },
+        )
 
         return {
             "ok": True,
@@ -407,6 +644,8 @@ class UpdateService:
             "version": release.get("latest", ""),
             "name": setup_name,
             "sha256": actual_hash,
+            "notes": str(release.get("notes") or ""),
+            "release_url": str(release.get("release_url") or ""),
         }
 
     # ========================================================
@@ -447,11 +686,13 @@ class UpdateService:
         creationflags |= getattr(subprocess, "DETACHED_PROCESS", 0)
         creationflags |= getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
 
+        self._mark_install_started(path.name)
+
         try:
             subprocess.Popen(
                 [
                     str(path),
-                    "/VERYSILENT",
+                    "/SILENT",
                     "/SUPPRESSMSGBOXES",
                     "/NORESTART",
                     "/CLOSEAPPLICATIONS",

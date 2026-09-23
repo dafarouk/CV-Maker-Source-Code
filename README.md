@@ -1,4 +1,4 @@
-# CV Maker (CVM) 1.0.1
+# CV Maker (CVM) 1.0.2
 
 Free, local-first Windows CV builder by Farouk.
 

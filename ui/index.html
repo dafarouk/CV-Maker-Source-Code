@@ -19,32 +19,35 @@
     <link rel="stylesheet" href="css/product_polish.css">
     <link rel="stylesheet" href="css/v101_hotfix_02.css">
     <link rel="stylesheet" href="css/latex_ide.css">
+    <link rel="stylesheet" href="css/shell_refresh.css">
 </head>
 <body>
 <div id="appShell" class="app-shell">
 
-    <header class="topbar">
-        <div class="brand-area">
-            <div class="brand-logo-wrap">
-                <img src="../assets/branding/cvm.png" alt="CVM" class="brand-logo">
-            </div>
-            <div class="brand-copy">
-                <div class="brand-name">CV Maker <span class="brand-author">- By Farouk</span></div>
-                <div class="brand-subtitle">ATS-friendly CV builder</div>
-            </div>
+    <header class="topbar cvm-shell-topbar">
+        <div class="cvm-shell-context">
+            <span id="cvmShellEyebrow">CV CREATION WORKSPACE</span>
+            <strong id="cvmShellPageTitle">Home</strong>
         </div>
 
         <div class="topbar-actions">
             <button id="cvmResumeEditorBtn" class="top-action-button cvm-v101-resume-editor" type="button" hidden>Go back to CV editing</button>
-            <button id="saveProjectBtn" class="top-action-button" type="button">Save project</button>
+            <button id="cvmShellSupportBtn" class="top-action-button cvm-shell-support-button" type="button">♥ Support CVM</button>
+            <button id="cvmShellOpenProjectBtn" class="top-action-button" type="button">Open .cvm</button>
+            <button id="saveProjectBtn" class="top-action-button" type="button">Save .cvm</button>
             <button id="quickPdfBtn" class="quick-export-button" type="button" title="Generate PDF">PDF</button>
             <button id="quickDocxBtn" class="quick-export-button" type="button" title="Generate DOCX">DOCX</button>
             <div id="versionBadge" class="version-badge">v1.0.2</div>
         </div>
     </header>
 
-    <aside class="sidebar">
-        <div class="sidebar-section-label">WORKSPACE</div>
+    <aside class="sidebar cvm-shell-sidebar">
+        <div class="cvm-shell-brand">
+            <img src="../assets/branding/cvm.png" alt="CVM" class="cvm-shell-brand-logo">
+            <strong class="cvm-shell-brand-name">CV Maker</strong>
+            <span class="cvm-shell-brand-author">MADE BY FAROUK</span>
+        </div>
+
         <nav class="nav-list">
             <button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span>Home</span></button>
             <button class="nav-item" data-page="content"><span class="nav-icon">≡</span><span>CV Content</span></button>
@@ -54,11 +57,12 @@
         </nav>
 
         <div class="sidebar-spacer"></div>
-        <div class="sidebar-section-label">APPLICATION</div>
-        <nav class="nav-list compact">
-            <button id="openRecentBtn" class="nav-item" type="button"><span class="nav-icon">◷</span><span>Recent Projects</span></button>
-            <button id="openExportsBtn" class="nav-item" type="button"><span class="nav-icon">□</span><span>Exports</span></button>
-            <button id="openLogsBtn" class="nav-item" type="button"><span class="nav-icon">⌁</span><span>Logs</span></button>
+
+        <nav class="cvm-shell-sidebar-links" aria-label="CV Maker utilities">
+            <button id="openRecentBtn" class="cvm-shell-sidebar-link" type="button">Recent Projects</button>
+            <button id="openLogsBtn" class="cvm-shell-sidebar-link" type="button">Logs</button>
+            <button id="cvmShellContactBtn" class="cvm-shell-sidebar-link" type="button">Contact</button>
+            <button id="cvmShellAboutBtn" class="cvm-shell-sidebar-link" type="button">About CVM</button>
         </nav>
 
         <div class="sidebar-footer">
@@ -305,5 +309,6 @@
 <script src="js/v101_core.js"></script>
 <script src="js/home_i18n.js"></script>
 <script src="js/latex_ide.js"></script>
+<script src="js/shell_refresh.js"></script>
 </body>
 </html>

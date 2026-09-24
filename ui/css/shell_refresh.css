@@ -1,0 +1,550 @@
+/* ============================================================
+   CV MAKER — JAM FAMILY SHELL REFRESH v2
+   Fixes:
+   - command bar / language buttons stay inside the top bar
+   - removes the Offline first block
+   - compacts Logs cards
+   - removes purple utility-link active pill
+============================================================ */
+
+:root {
+    --cvm-shell-bg: #0B111A;
+    --cvm-shell-panel: #101722;
+    --cvm-shell-panel-deep: #09101A;
+    --cvm-shell-line: rgba(188, 150, 93, .16);
+    --cvm-shell-line-soft: rgba(255, 255, 255, .08);
+    --cvm-shell-text: #F6F8FC;
+    --cvm-shell-muted: #98A2B3;
+    --cvm-shell-gold: #BC965D;
+    --cvm-shell-gold-light: #D0AA70;
+}
+
+html,
+body {
+    overflow: hidden !important;
+    background: var(--cvm-shell-bg) !important;
+}
+
+.app-shell {
+    display: grid !important;
+    grid-template-columns: 276px minmax(0, 1fr) !important;
+    grid-template-rows: 78px minmax(0, 1fr) !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    background:
+        radial-gradient(circle at 72% -10%, rgba(188, 150, 93, .07), transparent 31%),
+        linear-gradient(180deg, #101620 0%, #0B111A 100%) !important;
+}
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+.sidebar,
+html[data-theme="dark"] .sidebar {
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 24px 18px 18px !important;
+    border-right: 1px solid var(--cvm-shell-line) !important;
+    background:
+        radial-gradient(circle at 50% 5%, rgba(208, 170, 112, .05), transparent 24%),
+        linear-gradient(180deg, rgba(17, 24, 39, .99), rgba(8, 14, 23, .99)) !important;
+    box-shadow: 18px 0 38px rgba(0, 0, 0, .13) !important;
+    overflow: hidden !important;
+}
+
+.cvm-shell-brand {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px 10px 22px;
+    text-align: center;
+}
+
+.cvm-shell-brand-logo {
+    display: block;
+    width: 104px;
+    height: 64px;
+    object-fit: contain;
+    margin: 0 auto 10px;
+    filter:
+        drop-shadow(0 11px 19px rgba(0, 0, 0, .30))
+        drop-shadow(0 0 12px rgba(208, 170, 112, .09));
+}
+
+.cvm-shell-brand-name {
+    color: #F8FAFC;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: .01em;
+}
+
+.cvm-shell-brand-author {
+    margin-top: 6px;
+    color: var(--cvm-shell-gold-light);
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: .18em;
+}
+
+.sidebar > .nav-list {
+    display: grid !important;
+    gap: 7px !important;
+}
+
+.sidebar .nav-item {
+    width: 100% !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 14px !important;
+    border: 0 !important;
+    border-radius: 13px !important;
+    color: #C9D1DE !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: left !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    transition:
+        background .16s ease,
+        color .16s ease,
+        transform .16s ease,
+        box-shadow .16s ease !important;
+}
+
+.sidebar .nav-item .nav-icon {
+    width: 20px !important;
+    min-width: 20px !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    color: #DCE3ED !important;
+    font-size: 14px !important;
+}
+
+.sidebar .nav-item:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, .05) !important;
+    transform: translateX(1px);
+}
+
+.sidebar .nav-item.active {
+    color: #17120C !important;
+    background:
+        linear-gradient(135deg, #D8B176 0%, #C89C60 48%, #B98F55 100%) !important;
+    box-shadow:
+        0 12px 26px rgba(188, 150, 93, .16),
+        inset 0 1px 0 rgba(255, 255, 255, .20) !important;
+}
+
+.sidebar .nav-item.active .nav-icon {
+    color: #17120C !important;
+}
+
+.sidebar-spacer {
+    flex: 1 1 auto !important;
+    min-height: 12px !important;
+}
+
+.cvm-shell-sidebar-links {
+    flex: 0 0 auto;
+    display: grid;
+    gap: 1px;
+    padding: 12px 0 4px;
+    border-top: 1px solid var(--cvm-shell-line-soft);
+}
+
+.cvm-shell-sidebar-link {
+    width: 100%;
+    padding: 8px 10px !important;
+    border: 0 !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #98A2B3 !important;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        color .15s ease,
+        background .15s ease,
+        padding-left .15s ease;
+}
+
+.cvm-shell-sidebar-link:hover,
+.cvm-shell-sidebar-link.active {
+    padding-left: 12px !important;
+    color: var(--cvm-shell-gold-light) !important;
+    background: rgba(255, 255, 255, .035) !important;
+    box-shadow: none !important;
+}
+
+/* User requested removal of the Offline first block. */
+.sidebar-footer {
+    display: none !important;
+}
+
+/* ============================================================
+   TOPBAR
+============================================================ */
+
+.topbar,
+html[data-theme="dark"] .topbar {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    height: 78px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    padding: 12px 24px 10px !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(188, 150, 93, .08) !important;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(14, 20, 31, .99) 0%,
+            rgba(14, 20, 31, .94) 76%,
+            rgba(14, 20, 31, .72) 100%
+        ) !important;
+    box-shadow: none !important;
+
+    /* Critical: old command bar must never escape the right edge. */
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.topbar::before {
+    display: none !important;
+}
+
+.cvm-shell-context {
+    flex: 0 1 260px;
+    min-width: 160px;
+    max-width: 260px;
+    display: grid;
+    gap: 4px;
+    align-content: center;
+}
+
+.cvm-shell-context span {
+    color: var(--cvm-shell-gold-light);
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+}
+
+.cvm-shell-context strong {
+    overflow: hidden;
+    color: #F7F9FC;
+    font-size: 24px;
+    font-weight: 820;
+    line-height: 1;
+    letter-spacing: -.025em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.topbar-actions {
+    position: static !important;
+    inset: auto !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    margin-left: auto !important;
+    overflow: hidden !important;
+}
+
+/* Existing CVM code rebuilds .topbar-actions into this command bar.
+   We keep that behavior but force it to stay fully contained. */
+.cvm-command-bar {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: auto !important;
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0 !important;
+    padding: 4px 6px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 17px !important;
+    white-space: nowrap !important;
+}
+
+.cvm-toolbar-group {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 5px !important;
+    gap: 4px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.cvm-toolbar-group + .cvm-toolbar-group {
+    border-left: 1px solid rgba(188, 150, 93, .15) !important;
+}
+
+.cvm-command-bar button,
+.cvm-command-bar a {
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+}
+
+.cvm-toolbar-group--creator .cvm-website-button {
+    min-width: 92px !important;
+    width: 92px !important;
+    max-width: 92px !important;
+    padding: 0 8px !important;
+}
+
+.cvm-toolbar-group--creator .cvm-donation-button {
+    min-width: 88px !important;
+    width: 88px !important;
+    max-width: 88px !important;
+    padding: 0 9px !important;
+}
+
+.cvm-toolbar-group--project #saveProjectBtn {
+    min-width: 88px !important;
+    width: auto !important;
+    padding-inline: 10px !important;
+}
+
+.cvm-command-bar #cvmResumeEditorBtn {
+    min-width: 145px !important;
+    width: auto !important;
+    max-width: 165px !important;
+    padding-inline: 11px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.cvm-export-segment {
+    min-width: 0 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+.cvm-export-segment .quick-export-button {
+    min-width: 48px !important;
+    width: 48px !important;
+    padding-inline: 6px !important;
+}
+
+/* Language control: keep both EN/FR buttons inside its own pill. */
+.cvm-toolbar-group--view {
+    flex: 0 0 auto !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    overflow: hidden !important;
+}
+
+.cvm-toolbar-group--view .cvm-language-switch,
+#cvmLanguageToggle {
+    flex: 0 0 112px !important;
+    min-width: 112px !important;
+    width: 112px !important;
+    max-width: 112px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 3px !important;
+    padding: 3px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+}
+
+.cvm-toolbar-group--view .cvm-language-switch button,
+#cvmLanguageToggle button {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 30px !important;
+    padding: 0 5px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.cvm-toolbar-group--status {
+    flex: 0 0 auto !important;
+    padding-right: 2px !important;
+}
+
+.cvm-toolbar-group--status .version-badge {
+    min-width: 42px !important;
+    width: auto !important;
+    padding-inline: 6px !important;
+}
+
+/* ============================================================
+   MAIN WORKSPACE
+============================================================ */
+
+.main-content,
+html[data-theme="dark"] .main-content {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden auto !important;
+    background:
+        radial-gradient(circle at 78% 0%, rgba(188, 150, 93, .045), transparent 28%),
+        linear-gradient(180deg, #0C131D 0%, #0A111A 100%) !important;
+}
+
+.cvm-v101-home-page.active {
+    min-height: 100% !important;
+}
+
+/* ============================================================
+   LOGS PAGE — COMPACT CONTENT-HEIGHT CARDS
+============================================================ */
+
+#page-logs-manager.active {
+    display: block !important;
+    min-height: 0 !important;
+    padding-bottom: 24px !important;
+}
+
+#page-logs-manager > .settings-card {
+    display: block !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 0 12px !important;
+    padding: 18px 20px !important;
+    align-self: auto !important;
+    flex: 0 0 auto !important;
+}
+
+#page-logs-manager > .settings-card h2 {
+    margin: 0 0 13px !important;
+}
+
+#page-logs-manager #cvmV06LogEvents,
+#page-logs-manager #cvmV06LogFiles,
+#page-logs-manager .cvm-manager-list {
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-bottom: 0 !important;
+}
+
+#page-logs-manager #cvmV06LogFiles > p,
+#page-logs-manager #cvmV06LogFiles > div:last-child,
+#page-logs-manager #cvmV06LogEvents > p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* ============================================================
+   RESPONSIVE SAFETY
+============================================================ */
+
+@media (max-width: 1450px) {
+    .app-shell {
+        grid-template-columns: 246px minmax(0, 1fr) !important;
+    }
+
+    .topbar {
+        gap: 10px !important;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+
+    .cvm-shell-context {
+        flex-basis: 205px;
+        max-width: 205px;
+    }
+
+    .cvm-shell-context strong {
+        font-size: 20px;
+    }
+
+    .cvm-toolbar-group {
+        padding-inline: 3px !important;
+        gap: 3px !important;
+    }
+
+    .cvm-toolbar-group--creator .cvm-website-button {
+        min-width: 82px !important;
+        width: 82px !important;
+        max-width: 82px !important;
+        font-size: 9px !important;
+    }
+
+    .cvm-toolbar-group--creator .cvm-donation-button {
+        min-width: 40px !important;
+        width: 40px !important;
+        max-width: 40px !important;
+        padding: 0 !important;
+    }
+
+    .cvm-toolbar-group--creator .cvm-donation-label {
+        display: none !important;
+    }
+
+    .cvm-command-bar #cvmResumeEditorBtn {
+        min-width: 130px !important;
+        max-width: 145px !important;
+        font-size: 10px !important;
+    }
+
+    .cvm-toolbar-group--view .cvm-language-switch,
+    #cvmLanguageToggle {
+        flex-basis: 102px !important;
+        min-width: 102px !important;
+        width: 102px !important;
+        max-width: 102px !important;
+    }
+}
+
+@media (max-width: 1180px) {
+    .app-shell {
+        grid-template-columns: 224px minmax(0, 1fr) !important;
+    }
+
+    .sidebar {
+        padding-inline: 14px !important;
+    }
+
+    .cvm-shell-context {
+        display: none !important;
+    }
+
+    .topbar-actions {
+        width: 100% !important;
+    }
+
+    .cvm-command-bar {
+        margin-left: auto !important;
+    }
+}

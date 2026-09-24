@@ -12,7 +12,7 @@ from src.latex_workspace import LatexWorkspace
 
 
 def test_version() -> None:
-    assert APP_VERSION == "1.0.2"
+    assert APP_VERSION == "1.0.3"
 
 
 def test_patch_layers_are_consolidated() -> None:

@@ -10,7 +10,7 @@ from platformdirs import user_data_dir
 
 APP_NAME = "CVM"
 APP_FULL_NAME = "CV Maker"
-APP_VERSION = "1.0.2"
+APP_VERSION = "1.0.3"
 APP_AUTHOR = "Farouk"
 
 WINDOW_TITLE = f"{APP_FULL_NAME} - By {APP_AUTHOR}"

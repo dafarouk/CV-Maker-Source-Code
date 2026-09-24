@@ -108,5 +108,5 @@ def test_release_script_generates_github_ready_assets() -> None:
 
 
 def test_current_version_is_1_0_2() -> None:
-    # 1.0.2 contains the HTML preview fix, LaTeX IDE upgrade and updater UX improvements.
-    assert APP_VERSION == "1.0.2"
+    # 1.0.3 adds the JAM-family shell refresh and refreshed CVM branding/icon.
+    assert APP_VERSION == "1.0.3"
